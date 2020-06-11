@@ -8,10 +8,6 @@
 // See https://docusaurus.io/docs/site-config for all the possible
 // site configuration options.
 
-// List of projects/orgs using your project for the users page.
-const users = [
-];
-
 const siteConfig = {
   title: 'Purple Kingdom Games', // Title for your website.
   tagline: 'Building tools for games developers, and games, lovely games',
@@ -37,14 +33,14 @@ const siteConfig = {
 
 
   /* path to images for header/footer */
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
-  favicon: 'img/favicon.ico',
+  headerIcon: 'img/pk-small.svg',
+  footerIcon: 'img/pk-small.svg',
+  favicon: 'img/pk-small.svg',
 
   /* Colors for website */
   colors: {
-    primaryColor: '#758ba9',
-    secondaryColor: '#516176',
+    primaryColor: '#14002a',
+    secondaryColor: '#dfc1ff',
   },
 
   /* Custom fonts for website */
@@ -62,7 +58,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Your Name or Your Company Name`,
+  copyright: `Copyright © ${new Date().getFullYear()} Purple Kingdom Games Ltd.`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.

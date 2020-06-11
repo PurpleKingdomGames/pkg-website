@@ -4,13 +4,45 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
- 
+
 /* your custom css */
 
+.homeContainer {
+    background: #14002a;
+    background: rgba(25,0,51,1);
+    background: -moz-linear-gradient(-45deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(25,0,51,1)), color-stop(100%, rgba(25,0,51,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
+    background: linear-gradient(135deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#190033', endColorstr='#190033', GradientType=1 );
+
+
+}
+
+.homeContainer .homeWrapper .projectLogo {
+    justify-content: center;
+    position: relative;
+    display: flex;
+}
+
+.homeContainer .homeWrapper .projectLogo img {
+    max-height: none;
+    display: block;
+    height: 150px;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+    .homeContainer .homeWrapper .projectLogo img {
+        height: 250px;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
+    .homeContainer .homeWrapper .projectLogo img {
+        height: 350px;
+    }
 }
 
 @media only screen and (max-width: 1023px) {
