@@ -31,15 +31,8 @@ class HomeSplash extends React.Component {
 
     const Logo = props => (
       <div className="projectLogo">
-        <img src={props.img_src} alt="Project Logo" />
+        <img src={props.img_src} alt="{props.title} - {props.tagline}" />
       </div>
-    );
-
-    const ProjectTitle = props => (
-      <h2 className="projectTitle">
-        {props.title}
-        <small>{props.tagline}</small>
-      </h2>
     );
 
     const PromoSection = props => (
@@ -50,25 +43,9 @@ class HomeSplash extends React.Component {
       </div>
     );
 
-    const Button = props => (
-      <div className="pluginWrapper buttonWrapper">
-        <a className="button" href={props.href} target={props.target}>
-          {props.children}
-        </a>
-      </div>
-    );
-
     return (
       <SplashContainer>
-        <Logo img_src={`${baseUrl}img/undraw_monitor.svg`} />
-        <div className="inner">
-          <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
-          <PromoSection>
-            <Button href="#try">Try It Out</Button>
-            <Button href={docUrl('doc1.html')}>Example Link</Button>
-            <Button href={docUrl('doc2.html')}>Example Link 2</Button>
-          </PromoSection>
-        </div>
+        <Logo img_src={`${baseUrl}img/pk-large.svg`} />
       </SplashContainer>
     );
   }
