@@ -13,6 +13,7 @@ const siteConfig = {
   tagline: 'Building tools for games developers, and games, lovely games',
   url: 'https://purplekingdomgames.com/', // Your website URL
   baseUrl: '/', // Base URL for your project */
+  cleanUrl: true,
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -25,9 +26,6 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'doc1', label: 'Docs'},
-    {doc: 'doc4', label: 'API'},
-    {page: 'help', label: 'Help'},
     {blog: true, label: 'Blog'},
   ],
 
@@ -40,22 +38,24 @@ const siteConfig = {
   /* Colors for website */
   colors: {
     primaryColor: '#14002a',
-    secondaryColor: '#dfc1ff',
+    secondaryColor: '#190033',
   },
 
   /* Custom fonts for website */
-  /*
+
   fonts: {
     myFont: [
-      "Times New Roman",
-      "Serif"
+      "Maven-Pro",
+      "Helvetica",
+      "sans-serif"
     ],
     myOtherFont: [
+      "sans-serif",
       "-apple-system",
       "system-ui"
     ]
   },
-  */
+
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()} Purple Kingdom Games Ltd.`,
