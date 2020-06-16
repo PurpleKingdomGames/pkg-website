@@ -15,20 +15,8 @@ const GridBlock = CompLibrary.GridBlock;
 
 class HomeSplash extends React.Component {
   render() {
-    const {siteConfig, language = ''} = this.props;
-    const {baseUrl, docsUrl} = siteConfig;
-    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
-    const langPart = `${language ? `${language}/` : ''}`;
-    const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
-
-
-    const Button = props => (
-        <div className="pluginWrapper buttonWrapper">
-          <a className="button" href={props.href} target={props.target}>
-            {props.children}
-          </a>
-        </div>
-    );
+    const {siteConfig} = this.props;
+    const {baseUrl} = siteConfig;
 
     const SplashContainer = props => (
       <div className="homeContainer">
@@ -63,23 +51,9 @@ class HomeSplash extends React.Component {
 class Index extends React.Component {
   render() {
     const {config: siteConfig, language = ''} = this.props;
-    const {baseUrl} = siteConfig;
-
-    const Block = props => (
-      <Container
-        padding={['bottom', 'top']}
-        id={props.id}
-        background={props.background}>
-        <GridBlock
-          align="center"
-          contents={props.children}
-          layout={props.layout}
-        />
-      </Container>
-    );
 
     const ToolsCallout = () => (
-        <div className="container paddingBottom paddingTop">
+        <div className="container">
             <div className="wrapper" style={{ textAlign: 'left' }}>
                 <div className="gridBlock">
                     <div className="blockElement alignLeft imageAlignSide imageAlignRight twoByGridBlock">
@@ -100,7 +74,7 @@ class Index extends React.Component {
     );
 
     const GamesCallout = () => (
-        <div className="container paddingBottom paddingTop lightBackground">
+        <div className="container lightBackground">
             <div className="wrapper">
                 <div className="gridBlock">
                     <div className="blockElement alignRight imageAlignSide imageAlignLeft twoByGridBlock">
