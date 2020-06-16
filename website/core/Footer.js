@@ -36,11 +36,8 @@ class Footer extends React.Component {
             )}
           </a>
           <div>
-            <a href={this.docUrl('doc1.html', this.props.language)}>
+            <a href="/privacy">
               Privacy Policy
-            </a>
-            <a href={this.docUrl('doc2.html', this.props.language)}>
-              Press Releases
             </a>
             <a href="mailto:info@purplekingdomgames.com">
               Contact Us
@@ -51,16 +48,6 @@ class Footer extends React.Component {
           <div>
             <a href="https://github.com/PurpleKingdomGames">GitHub</a>
             <iframe class="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe>
-            <a
-              className="github-button"
-              href={this.props.config.repoUrl}
-              data-icon="octicon-star"
-              data-count-href="/facebook/docusaurus/stargazers"
-              data-show-count="true"
-              data-count-aria-label="# stargazers on GitHub"
-              aria-label="Star this project on GitHub">
-              Star
-            </a>
             {this.props.config.twitterUsername && (
               <div className="social">
                 <a

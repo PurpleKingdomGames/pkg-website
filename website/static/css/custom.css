@@ -29,6 +29,11 @@ a:hover {
     color: #ff16f6;
 }
 
+.mainContainer {
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+
 .homeContainer {
     background: #14002a;
     background: rgba(25,0,51,1);
@@ -49,7 +54,7 @@ a:hover {
     justify-content: center;
     position: relative;
     display: flex;
-    padding-bottom: 25px;
+    padding-bottom: 60px;
 }
 
 .homeContainer .homeWrapper .projectLogo img {
@@ -69,13 +74,17 @@ a:hover {
     align-items: center;
 }
 
+.alignRight {
+    text-align: left;
+}
+
 .container .wrapper .alignRight .blockContent h2 {
-    text-align: right;
+    text-align: left;
 }
 
 .alignRight .blockContent div {
     display: flex;
-    justify-content: right;
+    justify-content: left;
 }
 
 .sponsor-button {
