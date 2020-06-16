@@ -20,6 +20,15 @@ body {
     font-family: $myFont;
 }
 
+a {
+    color: #7420a0;
+    transition: color 0.5s;
+}
+
+a:hover {
+    color: #ff16f6;
+}
+
 .homeContainer {
     background: #14002a;
     background: rgba(25,0,51,1);
@@ -30,8 +39,6 @@ body {
     background: -ms-linear-gradient(-45deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
     background: linear-gradient(135deg, rgba(25,0,51,1) 0%, rgba(25,0,51,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#190033', endColorstr='#190033', GradientType=1 );
-
-
 }
 
 .homeContainer .homeWrapper {
@@ -48,7 +55,17 @@ body {
 .homeContainer .homeWrapper .projectLogo img {
     max-height: none;
     display: block;
-    height: 150px;
+    height: 170px;
+}
+
+.imageAlignSide .blockImage {
+    flex: 0 1 100px;
+    max-width: 100px;
+}
+
+.blockImage {
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
@@ -60,6 +77,11 @@ body {
 @media only screen and (min-width: 1024px) {
     .homeContainer .homeWrapper .projectLogo img {
         height: 350px;
+    }
+
+    .imageAlignSide .blockImage {
+        flex: 0 1 190px;
+        max-width: 190px;
     }
 }
 

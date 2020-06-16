@@ -75,8 +75,10 @@ const siteConfig = {
 
   // Open Graph and Twitter card images.
   ogImage: 'img/undraw_online.svg',
+  twitter: true,
+  twitterUsername: "purple_herald",
   twitterImage: 'img/undraw_tweetstorm.svg',
-
+  gaTrackingId: 'UA-123348618-2',
   // For sites with a sizable amount of content, set collapsible to true.
   // Expand/collapse the links and subcategories under categories.
   // docsSideNavCollapsible: true,

@@ -21,6 +21,15 @@ class HomeSplash extends React.Component {
     const langPart = `${language ? `${language}/` : ''}`;
     const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
 
+
+    const Button = props => (
+        <div className="pluginWrapper buttonWrapper">
+          <a className="button" href={props.href} target={props.target}>
+            {props.children}
+          </a>
+        </div>
+    );
+
     const SplashContainer = props => (
       <div className="homeContainer">
         <div className="homeSplashFade">
@@ -31,7 +40,7 @@ class HomeSplash extends React.Component {
 
     const Logo = props => (
       <div className="projectLogo">
-        <img src={props.img_src} alt="{props.title} - {props.tagline}" />
+        <img src={props.img_src} alt={props.alt} />
       </div>
     );
 
@@ -45,7 +54,7 @@ class HomeSplash extends React.Component {
 
     return (
       <SplashContainer>
-        <Logo img_src={`${baseUrl}img/pk-large.svg`} />
+        <Logo img_src={`${baseUrl}img/pk-large.svg`} alt={`${siteConfig.title} - ${siteConfig.tagline}`} />
       </SplashContainer>
     );
   }
@@ -69,13 +78,25 @@ class Index extends React.Component {
       </Container>
     );
 
-    const FeatureCallout = () => (
-      <div
-        className="productShowcaseSection paddingBottom"
-        style={{textAlign: 'center'}}>
-        <h2>Feature Callout</h2>
-        <MarkdownBlock>These are features of this project</MarkdownBlock>
-      </div>
+    const ToolsCallout = () => (
+        <div className="container paddingBottom paddingTop">
+            <div className="wrapper" style={{ textAlign: 'left' }}>
+                <div className="gridBlock">
+                    <div className="blockElement alignLeft imageAlignSide imageAlignRight twoByGridBlock">
+                        <div class="blockContent">
+                            <h2>Tools</h2>
+                            <MarkdownBlock>
+                                We're dedicated to creating tools for programmers to make amazing games! Our flagship game engine [Indigo](https://indigoengine.io) lets functional developers create stunning pixel games in Scala that compile to Javascript.
+                            </MarkdownBlock>
+                            <MarkdownBlock>
+                            Our [Unity Input Mapper](https://github.com/PurpleKingdomGames/UnityInputManager) puts game developers back in the driving seat when defining how controls are mapped.
+                            </MarkdownBlock>
+                        </div>
+                        <div class="blockImage"><img src="/img/indigo_logo.svg" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 
     const TryOut = () => (
@@ -122,25 +143,6 @@ class Index extends React.Component {
       </Block>
     );
 
-    const Features = () => (
-      <Block layout="fourColumn">
-        {[
-          {
-            content: 'This is the content of my feature',
-            image: `${baseUrl}img/undraw_react.svg`,
-            imageAlign: 'top',
-            title: 'Feature One',
-          },
-          {
-            content: 'The content of my second feature',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
-            imageAlign: 'top',
-            title: 'Feature Two',
-          },
-        ]}
-      </Block>
-    );
-
     const Showcase = () => {
       if ((siteConfig.users || []).length === 0) {
         return null;
@@ -174,8 +176,7 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
-          <Features />
-          <FeatureCallout />
+          <ToolsCallout />
           <LearnHow />
           <TryOut />
           <Description />
