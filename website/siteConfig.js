@@ -26,6 +26,8 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
+    {page: 'index', label: 'About'},
+    {page: 'privacy', label: 'Privacy Policy'},
     {blog: true, label: 'Blog'},
   ],
 

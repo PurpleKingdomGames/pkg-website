@@ -59,13 +59,33 @@ a:hover {
 }
 
 .imageAlignSide .blockImage {
-    flex: 0 1 100px;
-    max-width: 100px;
+    flex: 0 1 90px;
+    max-width: 90px;
 }
 
 .blockImage {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.container .wrapper .alignRight .blockContent h2 {
+    text-align: right;
+}
+
+.alignRight .blockContent div {
+    display: flex;
+    justify-content: right;
+}
+
+.sponsor-button {
+    height: 35px;
+    width: 107px;
+    display: block;
+    border: none;
+    transform: scale(0.75);
+    position: relative;
+    left: -13px;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
@@ -80,8 +100,13 @@ a:hover {
     }
 
     .imageAlignSide .blockImage {
-        flex: 0 1 190px;
-        max-width: 190px;
+        flex: 0 1 140px;
+        max-width: 140px;
+    }
+
+    .imageAlignSide .blockImage.algae-cover {
+        flex: 0 1 400px;
+        max-width: 400px;
     }
 }
 
