@@ -89,7 +89,7 @@ class Index extends React.Component {
                                 We're dedicated to creating tools for programmers to make amazing games! Our flagship game engine [Indigo](https://indigoengine.io) lets functional developers create stunning pixel games in Scala that compile to Javascript.
                             </MarkdownBlock>
                             <MarkdownBlock>
-                            Our [Unity Input Mapper](https://github.com/PurpleKingdomGames/UnityInputManager) puts game developers back in the driving seat when defining how controls are mapped.
+                                Our [Unity Input Mapper](https://github.com/PurpleKingdomGames/UnityInputManager) puts game developers back in the driving seat when defining how controls are mapped.
                             </MarkdownBlock>
                         </div>
                         <div class="blockImage"><img src="/img/indigo_logo.svg" /></div>
@@ -99,88 +99,38 @@ class Index extends React.Component {
         </div>
     );
 
-    const TryOut = () => (
-      <Block id="try">
-        {[
-          {
-            content:
-              'To make your landing page more attractive, use illustrations! Check out ' +
-              '[**unDraw**](https://undraw.co/) which provides you with customizable illustrations which are free to use. ' +
-              'The illustrations you see on this page are from unDraw.',
-            image: `${baseUrl}img/undraw_code_review.svg`,
-            imageAlign: 'left',
-            title: 'Wonderful SVG Illustrations',
-          },
-        ]}
-      </Block>
-    );
-
-    const Description = () => (
-      <Block background="dark">
-        {[
-          {
-            content:
-              'This is another description of how this project is useful',
-            image: `${baseUrl}img/undraw_note_list.svg`,
-            imageAlign: 'right',
-            title: 'Description',
-          },
-        ]}
-      </Block>
-    );
-
-    const LearnHow = () => (
-      <Block background="light">
-        {[
-          {
-            content:
-              'Each new Docusaurus project has **randomly-generated** theme colors.',
-            image: `${baseUrl}img/undraw_youtube_tutorial.svg`,
-            imageAlign: 'right',
-            title: 'Randomly Generated Theme Colors',
-          },
-        ]}
-      </Block>
-    );
-
-    const Showcase = () => {
-      if ((siteConfig.users || []).length === 0) {
-        return null;
-      }
-
-      const showcase = siteConfig.users
-        .filter(user => user.pinned)
-        .map(user => (
-          <a href={user.infoLink} key={user.infoLink}>
-            <img src={user.image} alt={user.caption} title={user.caption} />
-          </a>
-        ));
-
-      const pageUrl = page => baseUrl + (language ? `${language}/` : '') + page;
-
-      return (
-        <div className="productShowcaseSection paddingBottom">
-          <h2>Who is Using This?</h2>
-          <p>This project is used by all these people</p>
-          <div className="logos">{showcase}</div>
-          <div className="more-users">
-            <a className="button" href={pageUrl('users.html')}>
-              More {siteConfig.title} Users
-            </a>
-          </div>
+    const GamesCallout = () => (
+        <div className="container paddingBottom paddingTop lightBackground">
+            <div className="wrapper">
+                <div className="gridBlock">
+                    <div className="blockElement alignRight imageAlignSide imageAlignLeft twoByGridBlock">
+                        <div class="blockImage algae-cover">
+                            <img src="/img/algae.png" />
+                        </div>
+                        <div class="blockContent">
+                            <h2>Games</h2>
+                            <MarkdownBlock>
+                                Prior to creating our own game engine, we used Unity to create a host of games to scrtach that game development itch!
+                            </MarkdownBlock>
+                            <MarkdownBlock>
+                                [Algae](https://store.steampowered.com/app/900390/Algae/) was our biggest project as we dabbled in Steam and native games. It's a cute 2D puzzle platformer that sees you take control of a sentient Algae in your bid to escape the beaker your were created in.
+                            </MarkdownBlock>
+                            <MarkdownBlock>
+                                [Penguin Fling!](https://play.google.com/store/apps/details?id=com.pks.penguinfling&hl=en_US) was a side project to see what we could do in Unity with little time and limited resources. What was created was a quick game mobile game, and our only game so far to [spawn a sequel](https://play.google.com/store/apps/details?id=com.purplekingdomgames.penguinfling2&hl=en_US).
+                            </MarkdownBlock>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      );
-    };
+    );
 
     return (
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <ToolsCallout />
-          <LearnHow />
-          <TryOut />
-          <Description />
-          <Showcase />
+          <GamesCallout />
         </div>
       </div>
     );
