@@ -47,7 +47,7 @@ class Footer extends React.Component {
           </div>
           <div>
             <a href="https://github.com/PurpleKingdomGames">GitHub</a>
-            <iframe class="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe>
+            <iframe className="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe>
             {this.props.config.twitterUsername && (
               <div className="social">
                 <a

@@ -10,8 +10,6 @@ const React = require('react');
 const CompLibrary = require('../../core/CompLibrary.js');
 
 const MarkdownBlock = CompLibrary.MarkdownBlock; /* Used to read markdown */
-const Container = CompLibrary.Container;
-const GridBlock = CompLibrary.GridBlock;
 
 class HomeSplash extends React.Component {
   render() {
@@ -57,7 +55,7 @@ class Index extends React.Component {
             <div className="wrapper" style={{ textAlign: 'left' }}>
                 <div className="gridBlock">
                     <div className="blockElement alignLeft imageAlignSide imageAlignRight twoByGridBlock">
-                        <div class="blockContent">
+                        <div className="blockContent">
                             <h2>Tools</h2>
                             <MarkdownBlock>
                                 We're dedicated to creating tools for programmers to make amazing games! Our flagship game engine [Indigo](https://indigoengine.io) lets functional developers create stunning pixel games in Scala that compile to Javascript.
@@ -66,7 +64,7 @@ class Index extends React.Component {
                                 Our [Unity Input Mapper](https://github.com/PurpleKingdomGames/UnityInputManager) puts game developers back in the driving seat when defining how controls are mapped.
                             </MarkdownBlock>
                         </div>
-                        <div class="blockImage"><img src="/img/indigo_logo.svg" /></div>
+                        <div className="blockImage"><img src="/img/indigo_logo.svg" /></div>
                     </div>
                 </div>
             </div>
@@ -78,10 +76,10 @@ class Index extends React.Component {
             <div className="wrapper">
                 <div className="gridBlock">
                     <div className="blockElement alignRight imageAlignSide imageAlignLeft twoByGridBlock">
-                        <div class="blockImage algae-cover">
+                        <div className="blockImage algae-cover">
                             <img src="/img/algae.png" />
                         </div>
-                        <div class="blockContent">
+                        <div className="blockContent">
                             <h2>Games</h2>
                             <MarkdownBlock>
                                 Prior to creating our own game engine, we used Unity to create a host of games to scrtach that game development itch!
