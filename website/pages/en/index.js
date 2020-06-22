@@ -50,6 +50,48 @@ class Index extends React.Component {
   render() {
     const {config: siteConfig, language = ''} = this.props;
 
+    const showcase = siteConfig.productCallouts.map(callout => (
+        <div className="blockElement alignCenter imageAlignTop threeByGridBlock" key={callout.title}>
+            <div className="blockImage">
+                <img src={callout.image} />
+            </div>
+            <div className="blockContent">
+                <h2>{callout.title}</h2>
+                <MarkdownBlock>{callout.text}</MarkdownBlock>
+            </div>
+        </div>
+    ))
+
+    const ProductCallouts = () => (
+        <div className="container paddingTop">
+            <div className="wrapper">
+                <div className="gridBlock">
+                    {showcase}
+                </div>
+            </div>
+        </div>
+    )
+
+    const WhoAreWe = () => (
+        <div className="container">
+            <div className="wrapper">
+                <div className="gridBlock">
+                    <div className="blockElement">
+                        <div className="blockContent">
+                            <h2>Who Are We?</h2>
+                            <MarkdownBlock>
+                                We're two hobbyists who love making tool for game developers, and making games!
+                            </MarkdownBlock>
+                            <MarkdownBlock>
+                                In 2017 we decided to put our love of coding to good use and
+                            </MarkdownBlock>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
     const ToolsCallout = () => (
         <div className="container">
             <div className="wrapper" style={{ textAlign: 'left' }}>
@@ -101,8 +143,7 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
-          <ToolsCallout />
-          <GamesCallout />
+            <ProductCallouts/>
         </div>
       </div>
     );

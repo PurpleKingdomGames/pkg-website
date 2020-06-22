@@ -57,34 +57,46 @@ a:hover {
     padding-bottom: 60px;
 }
 
-.homeContainer .homeWrapper .projectLogo img {
-    max-height: none;
-    display: block;
-    height: 170px;
+.wrapper .gridBlock {
+    align-items: start;
+    justify-content: center;
 }
 
-.imageAlignSide .blockImage {
-    flex: 0 1 90px;
-    max-width: 90px;
-}
-
-.blockImage {
+.gridBlock .threeByGridBlock {
+    flex-grow: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
 }
 
-.alignRight {
-    text-align: left;
+
+.gridBlock .threeByGridBlock img {
+    height: 140px;
+    width: auto;
+    max-width: none;
 }
 
-.container .wrapper .alignRight .blockContent h2 {
-    text-align: left;
+.imageAlignTop.alignCenter .blockImage {
+    max-width: none;
+    margin-bottom: 0;
 }
 
-.alignRight .blockContent div {
+.gridBlock .blockElement:first-child .blockImage {
+    background-color: #29016a;
+    border-radius: 20px;
+    height: 140px;
+    width: 250px;
     display: flex;
-    justify-content: left;
+    justify-content: center;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.gridBlock .blockElement:first-child .blockImage img {
+    height: auto;
+    width: 100%;
 }
 
 .sponsor-button {
@@ -98,25 +110,11 @@ a:hover {
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
-    .homeContainer .homeWrapper .projectLogo img {
-        height: 250px;
-    }
+
 }
 
 @media only screen and (min-width: 1024px) {
-    .homeContainer .homeWrapper .projectLogo img {
-        height: 350px;
-    }
 
-    .imageAlignSide .blockImage {
-        flex: 0 1 140px;
-        max-width: 140px;
-    }
-
-    .imageAlignSide .blockImage.algae-cover {
-        flex: 0 1 400px;
-        max-width: 400px;
-    }
 }
 
 @media only screen and (max-width: 1023px) {
