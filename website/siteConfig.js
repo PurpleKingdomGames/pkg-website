@@ -10,7 +10,7 @@
 
 const siteConfig = {
   title: 'Purple Kingdom Games', // Title for your website.
-  tagline: 'Building tools for games developers, and games, lovely games',
+  tagline: 'Building tools for games developers',
   url: 'https://purplekingdomgames.com/', // Your website URL
   baseUrl: '/', // Base URL for your project */
   cleanUrl: true,
