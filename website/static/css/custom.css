@@ -109,12 +109,29 @@ a:hover {
     left: -13px;
 }
 
-@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+.lightBackground {
+    background-color: #7420a0;
+    color: white;
+}
 
+.lightBackground a {
+    color: #ff73e0;
+}
+
+.lightBackground a:hover {
+    color: #f59ae1;
+}
+
+@media only screen and (min-width: 736px) {
+    .blockElement.paddingTop {
+        padding-top: 80px;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
-
+    .blockElement.paddingTop {
+        padding-top: 80px;
+    }
 }
 
 @media only screen and (max-width: 1023px) {

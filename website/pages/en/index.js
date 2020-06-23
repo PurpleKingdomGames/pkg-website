@@ -73,66 +73,31 @@ class Index extends React.Component {
     )
 
     const WhoAreWe = () => (
-        <div className="container">
+        <div className="container paddingBottom lightBackground">
             <div className="wrapper">
                 <div className="gridBlock">
-                    <div className="blockElement">
-                        <div className="blockContent">
-                            <h2>Who Are We?</h2>
-                            <MarkdownBlock>
-                                We're two hobbyists who love making tool for game developers, and making games!
-                            </MarkdownBlock>
-                            <MarkdownBlock>
-                                In 2017 we decided to put our love of coding to good use and
-                            </MarkdownBlock>
-                        </div>
+                    <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
+                        <h2>Who Are We?</h2>
+                        <MarkdownBlock>
+                            Having met many moons ago while making websites and Flash games for clients,
+                            we subsequently went our separate ways and got real jobs.
+                        </MarkdownBlock>
+                        <MarkdownBlock>
+                            Now with over 20 years of making software between us, we've come together again
+                            to do what we're best at... making tools to help developers make
+                            games (and making a few games ourselves)!
+                        </MarkdownBlock>
                     </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    const ToolsCallout = () => (
-        <div className="container">
-            <div className="wrapper" style={{ textAlign: 'left' }}>
-                <div className="gridBlock">
-                    <div className="blockElement alignLeft imageAlignSide imageAlignRight twoByGridBlock">
-                        <div className="blockContent">
-                            <h2>Tools</h2>
-                            <MarkdownBlock>
-                                We're dedicated to creating tools for programmers to make amazing games! Our flagship game engine [Indigo](https://indigoengine.io) lets functional developers create stunning pixel games in Scala that compile to Javascript.
-                            </MarkdownBlock>
-                            <MarkdownBlock>
-                                Our [Unity Input Mapper](https://github.com/PurpleKingdomGames/UnityInputManager) puts game developers back in the driving seat when defining how controls are mapped.
-                            </MarkdownBlock>
-                        </div>
-                        <div className="blockImage"><img src="/img/indigo_logo.svg" /></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    const GamesCallout = () => (
-        <div className="container lightBackground">
-            <div className="wrapper">
-                <div className="gridBlock">
-                    <div className="blockElement alignRight imageAlignSide imageAlignLeft twoByGridBlock">
-                        <div className="blockImage algae-cover">
-                            <img src="/img/algae.png" />
-                        </div>
-                        <div className="blockContent">
-                            <h2>Games</h2>
-                            <MarkdownBlock>
-                                Prior to creating our own game engine, we used Unity to create a host of games to scrtach that game development itch!
-                            </MarkdownBlock>
-                            <MarkdownBlock>
-                                [Algae](https://store.steampowered.com/app/900390/Algae/) was our biggest project as we dabbled in Steam and native games. It's a cute 2D puzzle platformer that sees you take control of a sentient Algae in your bid to escape the beaker your were created in.
-                            </MarkdownBlock>
-                            <MarkdownBlock>
-                                [Penguin Fling!](https://play.google.com/store/apps/details?id=com.pks.penguinfling&hl=en_US) was a side project to see what we could do in Unity with little time and limited resources. What was created was a quick game mobile game, and our only game so far to [spawn a sequel](https://play.google.com/store/apps/details?id=com.purplekingdomgames.penguinfling2&hl=en_US).
-                            </MarkdownBlock>
-                        </div>
+                    <div className="blockElement paddingTop alignLeft imageAlignTop twoByGridBlock">
+                        <MarkdownBlock>
+                            If you like what we do and want to help us in our endevours, you can! We're on the
+                            [Github Sponsors](https://github.com/sponsors/PurpleKingdomGames) program, which means
+                            that from as little as $1 a month you can help us to keep delivering great software.
+                        </MarkdownBlock>
+                        <MarkdownBlock>
+                            Every sponsorship means a great deal to us, and we'd love to have you along as we help
+                            make the game development more fun.
+                        </MarkdownBlock>
                     </div>
                 </div>
             </div>
@@ -144,6 +109,7 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
             <ProductCallouts/>
+            <WhoAreWe/>
         </div>
       </div>
     );
