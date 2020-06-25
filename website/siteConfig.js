@@ -70,12 +70,12 @@ const siteConfig = {
         image: "/img/algae.png",
         title: "Algae",
         text: "[Algae](https://store.steampowered.com/app/900390/Algae/) is a cute 2D puzzle platformer that sees you take control of a sentient Algae in your bid to escape the beaker your were created in!"
-    },
-    {
+    }
+    /*,{
         image: "/img/penguin_fling.png",
         title: "Penguin Fling!",
         text: "[Penguin Fling!](https://play.google.com/store/apps/details?id=com.pks.penguinfling&hl=en_US) is a quick game mobile kid-friendly game of fling the penguin, and our only game so far to [spawn a sequel](https://play.google.com/store/apps/details?id=com.purplekingdomgames.penguinfling2&hl=en_US)."
-    }
+    }*/
   ],
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
