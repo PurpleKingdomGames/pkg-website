@@ -83,7 +83,7 @@ a:hover {
     margin-bottom: 0;
 }
 
-.gridBlock .blockElement:first-child .blockImage {
+.gridBlock .blockElement .blockImage {
     background-color: #29016a;
     border-radius: 20px;
     height: 140px;
@@ -94,9 +94,9 @@ a:hover {
     padding: 0 35px;
 }
 
-.gridBlock .blockElement:first-child .blockImage img {
-    height: auto;
-    width: 100%;
+.gridBlock .blockElement .blockImage img {
+    height: 80%;
+    width: auto;
 }
 
 .sponsor-button {
@@ -120,6 +120,11 @@ a:hover {
 
 .lightBackground a:hover {
     color: #f59ae1;
+}
+
+.lighterBackground {
+    background-color: #ad4fdf;
+    color: white;
 }
 
 @media only screen and (min-width: 736px) {
