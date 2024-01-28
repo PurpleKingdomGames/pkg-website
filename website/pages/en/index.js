@@ -73,30 +73,62 @@ class Index extends React.Component {
     )
 
     const WhoAreWe = () => (
-        <div className="container paddingBottom lightBackground">
+        <div className="container paddingBottom lighterBackground">
             <div className="wrapper">
                 <div className="gridBlock">
                     <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
-                        <h2>Who Are We?</h2>
+                        <h2>About us</h2>
                         <MarkdownBlock>
-                            Having met many moons ago while making websites and Flash games for clients,
-                            we subsequently went our separate ways and got real jobs.
+                            Purple Kindgom Games was set up by two long-time co-conspirators named David, both of whom ought to have known better.
                         </MarkdownBlock>
                         <MarkdownBlock>
-                            Now with over 20 years of making software between us, we've come together again
-                            to do what we're best at... making tools to help developers make
-                            games (and making a few games ourselves)!
+                            Our mission is to make whatever games and gaming technology appeals to us most at any given moment, while having as much fun as possible.
+                        </MarkdownBlock>
+                        <MarkdownBlock>
+                            As chaotic as that sounds, the result has been years of sustained and surprisingly focused work, primarily on our game engine, Indigo, and also on our web frontend framework, Tyrian.
                         </MarkdownBlock>
                     </div>
-                    <div className="blockElement paddingTop alignLeft imageAlignTop twoByGridBlock">
+                    <div className="blockElement paddingTop alignCenter imageAlignTop twoByGridBlock">
+                        <img src="img/pk-large.svg" height="300px" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const SponsorUs = () => (
+        <div className="container paddingBottom lightBackground">
+            <div className="wrapper">
+                <div className="gridBlock">
+                    <div className="blockElement paddingTop alignCenter imageAlignTop twoByGridBlock">
+                      <img src="img/pk-small.svg" height="100px" />
+                      &nbsp;&nbsp;
+                      &nbsp;&nbsp;
+                      &nbsp;&nbsp;
+                      <img src="img/indigo_logo.svg" height="100px" />
+                      &nbsp;&nbsp;
+                      &nbsp;&nbsp;
+                      &nbsp;&nbsp;
+                      <img src="img/tyrian.svg" height="100px" />
+                    </div>
+                    <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
+                        <h2>Support our work!</h2>
                         <MarkdownBlock>
-                            If you like what we do and want to help us in our endevours, you can! We're on the
-                            [Github Sponsors](https://github.com/sponsors/PurpleKingdomGames) program, which means
-                            that from as little as $1 a month you can help us to keep delivering great software.
+                            Like what we're doing? Consider supporting us!
                         </MarkdownBlock>
                         <MarkdownBlock>
-                            Every sponsorship means a great deal to us, and we'd love to have you along as we help
-                            make the game development more fun.
+                            We appreciate support in all it's forms, and are ever grateful to all of the wonderful people who
+                            have contributed to our projects over the years, whether by raising issues, contributing code, or
+                            even just by showing up and sharing screenshots of their creations!
+                        </MarkdownBlock>
+                        <MarkdownBlock>
+                            We are particularly grateful to our [financial backers](https://github.com/sponsors/PurpleKingdomGames?o=esb)
+                            who help us keep the lights on! 💜
+                        </MarkdownBlock>
+                        <MarkdownBlock>
+                            If you'd like to sponsor our work, we prefer accepting sponsorship via
+                            [Github](https://github.com/sponsors/PurpleKingdomGames?o=esb), but please reach out if you'd like to support
+                            us via another means, we'd love to hear from you!
                         </MarkdownBlock>
                     </div>
                 </div>
@@ -110,6 +142,7 @@ class Index extends React.Component {
         <div className="mainContainer">
             <ProductCallouts/>
             <WhoAreWe/>
+            <SponsorUs/>
         </div>
       </div>
     );

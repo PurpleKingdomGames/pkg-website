@@ -26,7 +26,10 @@ const siteConfig = {
   //   organizationName: 'JoelMarcey'
 
   // For no header links in the top nav bar -> headerLinks: [],
-  headerLinks: [],
+  headerLinks: [
+    { blog: true, label: 'Blog' },
+    { href: "https://discord.gg/b5CD47g", label: "Discord", external: true }
+  ],
 
 
   /* path to images for header/footer */
@@ -57,9 +60,19 @@ const siteConfig = {
 
   productCallouts: [
     {
-        image: "/img/indigo_logo_solid_text.svg",
+        image: "/img/pk-small.svg",
+        title: "News & Updates",
+        text: "Visit our [blog](/blog) for all the latest updates from the Purple Kingdom Games team!"
+    },
+    {
+        image: "/img/indigo_logo.svg",
         title: "Indigo",
-        text: "Our flagship game engine [Indigo](https://indigoengine.io) lets functional developers create stunning pixel games in Scala that compile to Javascript!"
+        text: "Our flagship code-only 2D game engine [Indigo](https://indigoengine.io) brings modern pixel-art to the web with all the expressiveness of Scala."
+    },
+    {
+        image: "/img/tyrian.svg",
+        title: "Tyrian",
+        text: "[Tyrian](https://tyrian.indigoengine.io) brings the delightful Elm architecture to Scala.js, for a scalable and enjoyable frontend web building experience."
     },
     {
         image: "/img/input_mapper_unity.png",
@@ -69,13 +82,13 @@ const siteConfig = {
     {
         image: "/img/algae.png",
         title: "Algae",
-        text: "[Algae](https://store.steampowered.com/app/900390/Algae/) is a cute 2D puzzle platformer that sees you take control of a sentient Algae in your bid to escape the beaker your were created in!"
-    }
-    /*,{
+        text: "[Algae](https://store.steampowered.com/app/900390/Algae/) is a cute 2D puzzle platformer that sees you take control of a sentient Algae in your bid to escape the beaker you were created in!"
+    },
+    {
         image: "/img/penguin_fling.png",
         title: "Penguin Fling!",
         text: "[Penguin Fling!](https://play.google.com/store/apps/details?id=com.pks.penguinfling&hl=en_US) is a quick game mobile kid-friendly game of fling the penguin, and our only game so far to [spawn a sequel](https://play.google.com/store/apps/details?id=com.purplekingdomgames.penguinfling2&hl=en_US)."
-    }*/
+    }
   ],
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
