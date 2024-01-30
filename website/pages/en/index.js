@@ -82,10 +82,10 @@ class Index extends React.Component {
                             Purple Kindgom Games was set up by two long-time co-conspirators named David, both of whom ought to have known better.
                         </MarkdownBlock>
                         <MarkdownBlock>
-                            Our mission is to make whatever games and gaming technology appeals to us most at any given moment, while having as much fun as possible.
+                            Our purpose is to build games and gaming technology for indie gamers and developers, while having as much fun as possible.
                         </MarkdownBlock>
                         <MarkdownBlock>
-                            As chaotic as that sounds, the result has been years of sustained and surprisingly focused work, primarily on our game engine, Indigo, and also on our web frontend framework, Tyrian.
+                            We're best known for our work on Indigo, a code-only game engine for functional programmers, and Tyrian, an Elm-inspired web framework.
                         </MarkdownBlock>
                     </div>
                     <div className="blockElement paddingTop alignCenter imageAlignTop twoByGridBlock">
