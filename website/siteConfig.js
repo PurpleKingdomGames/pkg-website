@@ -28,7 +28,8 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { blog: true, label: 'Blog' },
-    { href: "https://discord.gg/b5CD47g", label: "Discord", external: true }
+    { href: "https://discord.gg/b5CD47g", label: "Discord", external: true },
+    { href: "https://github.com/sponsors/PurpleKingdomGames", label: "Sponsor us! 💜", external: true }
   ],
 
   /* blog settings */
