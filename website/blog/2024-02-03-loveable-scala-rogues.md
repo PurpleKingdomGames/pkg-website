@@ -12,6 +12,8 @@ It's 2024! Yes, I know we're well into Feburary by now... but did you make any n
 
 One of my resolutions from _last_ year, was to work up the nerve to do another Scala meet-up talk on [Indigo](https://indigoengine.io/). The last time I did one ([**'Functional Game Programming'**](https://www.youtube.com/watch?v=SmZETGZKCVU)) was in the heady days of pre-pandemic 2020, and a lot has happened since then, both in terms of Indigo's development, and the Scala community in general.
 
+<!--truncate-->
+
 Admittedly, it took me the whole year to get moving... but by the end of 2023, the [London Scala User Group (LSUG)](https://www.meetup.com/london-scala/) had kindly given me a slot in _January_. Even though that meant the talk would be in 2024, as far as following through on new years resolutions go, I'm still calling that a win.
 
 The video hasn't emerged yet, but I'll post an update when it does. The slides and demos from the **'Loveable Scala Rogues'** talk can be found in [this repo](https://github.com/PurpleKingdomGames/talks).
