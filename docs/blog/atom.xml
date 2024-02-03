@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://purplekingdomgames.com//blog</id>
+    <title>Purple Kingdom Games Blog</title>
+    <updated>2024-02-03T06:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://purplekingdomgames.com//blog"/>
+    <subtitle>The best place to stay up-to-date with the latest Purple Kingdom Games news and events.</subtitle>
+    <logo>https://purplekingdomgames.com//img/pk-small.svg</logo>
+    <rights>Copyright © 2024 Purple Kingdom Games Ltd.</rights>
+    <entry>
+        <title type="html"><![CDATA[Loveable Scala Rogues]]></title>
+        <id>https://purplekingdomgames.com//blog/2024/02/03/loveable-scala-rogues.html</id>
+        <link href="https://purplekingdomgames.com//blog/2024/02/03/loveable-scala-rogues.html"/>
+        <updated>2024-02-03T06:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p><img src="/img/blog/lighting_layout.png" alt="'Hoplike', a little game I made for the 'Lovable Scala Rogues' talk."></p>
+<p>It's 2024! Yes, I know we're well into Feburary by now... but did you make any new years resolutions?</p>
+<p>One of my resolutions from <em>last</em> year, was to work up the nerve to do another Scala meet-up talk on <a href="https://indigoengine.io/">Indigo</a>. The last time I did one (<a href="https://www.youtube.com/watch?v=SmZETGZKCVU"><strong>'Functional Game Programming'</strong></a>) was in the heady days of pre-pandemic 2020, and a lot has happened since then, both in terms of Indigo's development, and the Scala community in general.</p>
+]]></summary>
+        <author>
+            <name>Dave Smith</name>
+            <uri>http://twitter.com/davidjamessmith</uri>
+        </author>
+    </entry>
+</feed>

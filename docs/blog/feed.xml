@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Purple Kingdom Games Blog</title>
+        <link>https://purplekingdomgames.com//blog</link>
+        <description>The best place to stay up-to-date with the latest Purple Kingdom Games news and events.</description>
+        <lastBuildDate>Sat, 03 Feb 2024 06:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <image>
+            <title>Purple Kingdom Games Blog</title>
+            <url>https://purplekingdomgames.com//img/pk-small.svg</url>
+            <link>https://purplekingdomgames.com//blog</link>
+        </image>
+        <copyright>Copyright © 2024 Purple Kingdom Games Ltd.</copyright>
+        <item>
+            <title><![CDATA[Loveable Scala Rogues]]></title>
+            <link>https://purplekingdomgames.com//blog/2024/02/03/loveable-scala-rogues.html</link>
+            <guid>https://purplekingdomgames.com//blog/2024/02/03/loveable-scala-rogues.html</guid>
+            <pubDate>Sat, 03 Feb 2024 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p><img src="/img/blog/lighting_layout.png" alt="'Hoplike', a little game I made for the 'Lovable Scala Rogues' talk."></p>
+<p>It's 2024! Yes, I know we're well into Feburary by now... but did you make any new years resolutions?</p>
+<p>One of my resolutions from <em>last</em> year, was to work up the nerve to do another Scala meet-up talk on <a href="https://indigoengine.io/">Indigo</a>. The last time I did one (<a href="https://www.youtube.com/watch?v=SmZETGZKCVU"><strong>'Functional Game Programming'</strong></a>) was in the heady days of pre-pandemic 2020, and a lot has happened since then, both in terms of Indigo's development, and the Scala community in general.</p>
+]]></description>
+        </item>
+    </channel>
+</rss>

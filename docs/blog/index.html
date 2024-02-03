@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Blog · Purple Kingdom Games</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Building tools for games developers"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Blog · Purple Kingdom Games"/><meta property="og:type" content="website"/><meta property="og:url" content="https://purplekingdomgames.com//"/><meta property="og:description" content="Building tools for games developers"/><meta property="og:image" content="https://purplekingdomgames.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://purplekingdomgames.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/pk-small.svg"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://purplekingdomgames.com/blog/atom.xml" title="Purple Kingdom Games Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://purplekingdomgames.com/blog/feed.xml" title="Purple Kingdom Games Blog RSS Feed"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-123348618-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/main.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="blog"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/pk-small.svg" alt="Purple Kingdom Games"/><h2 class="headerTitleWithLogo">Purple Kingdom Games</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive siteNavItemActive"><a href="/blog/" target="_self">Blog</a></li><li class=""><a href="https://discord.gg/b5CD47g" target="_blank">Discord</a></li><li class=""><a href="https://github.com/sponsors/PurpleKingdomGames" target="_blank">Sponsor us! 💜</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>All blog posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">All blog posts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/blog/2024/02/03/loveable-scala-rogues">Loveable Scala Rogues</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="posts"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2024/02/03/loveable-scala-rogues">Loveable Scala Rogues</a></h1><p class="post-meta">February 3, 2024</p><div class="authorBlock"><p class="post-authorName"><a href="http://twitter.com/davidjamessmith" target="_blank" rel="noreferrer noopener">Dave Smith</a></p><div class="authorPhoto"><a href="http://twitter.com/davidjamessmith" target="_blank" rel="noreferrer noopener"><img src="/img/davesmith00000.png" alt="Dave Smith"/></a></div></div></header><article class="post-content"><div><span><p><img src="/img/blog/lighting_layout.png" alt="'Hoplike', a little game I made for the 'Lovable Scala Rogues' talk."></p>
+<p>It's 2024! Yes, I know we're well into Feburary by now... but did you make any new years resolutions?</p>
+<p>One of my resolutions from <em>last</em> year, was to work up the nerve to do another Scala meet-up talk on <a href="https://indigoengine.io/">Indigo</a>. The last time I did one (<a href="https://www.youtube.com/watch?v=SmZETGZKCVU"><strong>'Functional Game Programming'</strong></a>) was in the heady days of pre-pandemic 2020, and a lot has happened since then, both in terms of Indigo's development, and the Scala community in general.</p>
+</span></div><div class="read-more"><a class="button" href="/blog/2024/02/03/loveable-scala-rogues">Read More</a></div></article></div><div class="docs-prevnext"></div></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/pk-small.svg" alt="Purple Kingdom Games" width="66" height="58"/></a><div><a href="/privacy">Privacy Policy</a><a href="mailto:info@purplekingdomgames.com">Contact Us</a></div><div></div><div><a href="https://github.com/PurpleKingdomGames">GitHub</a><iframe class="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe><div class="social"><a href="https://twitter.com/purple_herald" class="twitter-follow-button">Follow @purple_herald</a></div></div></section><section class="copyright">Copyright © 2024 Purple Kingdom Games Ltd.</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>
