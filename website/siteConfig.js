@@ -31,6 +31,10 @@ const siteConfig = {
     { href: "https://discord.gg/b5CD47g", label: "Discord", external: true }
   ],
 
+  /* blog settings */
+  blogSidebarCount: 'ALL',
+  blogSidebarTitle: { default: 'Recent posts', all: 'All blog posts' },
+  twitter: true,
 
   /* path to images for header/footer */
   headerIcon: 'img/pk-small.svg',
