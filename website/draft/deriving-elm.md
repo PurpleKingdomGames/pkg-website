@@ -1,5 +1,5 @@
 ---
-title: Deriving the Elm Architechure
+title: Deriving the Elm Architecture
 author: Dave Smith
 authorURL: http://twitter.com/davidjamessmith
 authorTwitter: davidjamessmith
@@ -36,8 +36,8 @@ Why do I want this? Well, I want..
 
 The Elm architecture ticks all of those boxes, but as with all things, there is a tradeoff. The drawbacks as I see them, are as follows:
 
-1. Effects with lifecycles being harder to manage. (e.g. Cancellations)
-2. In complex cases, rendering performance will be slower that other solutions.
+1. Explicitly managing the lifecycle of effects is more difficult. (e.g. Cancellations)
+2. In complex cases, rendering performance will be slower than other solutions.
 
 The rationale for those drawbacks being acceptable is a question of what you value; I frame it in terms of what abstraction level you prefer to work at. Do you value absolute control with maximum performance and accept increased general complexity, or do you value developer productivity more and are happy to sacrifice some performance to get it?
 
@@ -48,11 +48,11 @@ I value the latter more than the former, specifically answering the points above
 
 ## Arriving at the Elm architecture, based on need
 
-We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is closer to the cannonical TEA pattern than Indigo is for reasons beyond the scope of this post.
+We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is closer to the canonical TEA pattern than Indigo is for reasons beyond the scope of this post.
 
 That said, this is a general purpose pattern and can apply to any sort of graphical application, be it for example web, games, or mobile apps.
 
-We'll going to build up the architecure based on our _needs_:
+We'll going to build up the architecture based on our _needs_:
 
 1. The need to draw something onto the screen
 2. The need to performing the draw based on values that could change
@@ -76,7 +76,7 @@ This is a function, despite the lack of arguments. Think of it as a thunk: `() =
 
 ### Need 2: Remove the hardcoded values
 
-We'd like to move that `1` out of there so that it isn't hardcoded, and for that we'll need a model (in reasuringly familiar MVC parlance). Here is the model:
+We'd like to move that `1` out of there so that it isn't hardcoded, and for that we'll need a model (in reassuringly familiar MVC parlance). Here is the model:
 
 ```scala
 final case class Model(count: Int)
@@ -178,7 +178,7 @@ Looks pretty good so far! All our functions are pure and based on immutable data
 4. Update the model
 5. Re-render
 
-Note how deterministic and testible all this is, too.
+Note how deterministic and testable all this is, too.
 
 - Want to test a model update? Call `update` with a known model and message, and you should always get the same result.
 - Want to test the rendering? Give `view` a known model and you should get the same HTML representation every time.
@@ -195,11 +195,11 @@ Side effects are anything that breaks out of your nice comfortable application l
 
 Ok, first question: _When_ are we going to want to do side effects? Instinctively you'd probably say "for example, when someone presses a button" or "as a result of some calculation".
 
-In our current set up, pressing a button produces a `Msg`, so maybe we could generalise that to "after we process a message"?
+In our current setup, pressing a button produces a `Msg`, so maybe we could generalise that to "after we process a message"?
 
-There is one other time you might want to perform a side effect too, which is on application start up. Perhaps you need to call a web service to load some data to populate the home page of your app. You don't want to wait for a user interaction, you just want to do it immediately.
+There is one other time you might want to perform a side effect too, which is on application startup. Perhaps you need to call a web service to load some data to populate the homepage of your app. You don't want to wait for a user interaction, you just want to do it immediately.
 
-So if fact, we'd like to be able to run a side effect _whenever we produce a model_.
+So in fact, we'd like to be able to run a side effect _whenever we produce a model_.
 
 #### Cmd (Command)
 
@@ -363,6 +363,6 @@ enum Msg:
 
 From our basic need of wanting to design a GUI API architecture that runs on pure functions and immutable data, we have built up a set of functions that have resulted in the Elm Architecture.
 
-We haven't talked about how the runtime actually invoked these functions, though it isn't terribly complicated, nor have we discussed how the HTML represention is actually rendered to the browser by the VirtualDOM, or the implications of that.
+We haven't talked about how the runtime actually invoked these functions, though it isn't terribly complicated, nor have we discussed how the HTML representation is actually rendered to the browser by the VirtualDOM, or the implications of that.
 
-We have shown the clean and elegant nature of the Elm architecture though. The next challenge, is scaling it.
+We have shown the clean and elegant nature of the Elm architecture though. The next challenge is scaling it.
