@@ -6,9 +6,9 @@ authorTwitter: davidjamessmith
 authorImageURL: /img/davesmith00000.png
 ---
 
-Indigo and Tyrian are both built on top of flavours of the Elm architecture; But why that architecture pattern, and how does it work?
+Indigo and Tyrian are both based on flavours of the Elm architecture; But why that architecture pattern, and how does it work?
 
-In this post, we start with our desired first principles of a framework designed for programming a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.
+In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.
 
 <!--truncate-->
 
@@ -16,7 +16,7 @@ In this post, we start with our desired first principles of a framework designed
 
 The Elm Architecture, affectionately called the TEA pattern, is the architectural pattern borne out of the Elm programming language.
 
-Elm, in combination with the official architecture, is opinionated to the extent that it tends to polarise opinions. In my view, whether you love Elm the language or not, the architecture itself is the best GUI architecture pattern anyone has come up with so far.
+Elm tends to polarise opinions, but in my view, whether you love Elm the language or not, the architecture itself is the best GUI architecture pattern anyone has come up with so far.
 
 Let's dig in to how it comes about.
 
@@ -24,39 +24,35 @@ Let's dig in to how it comes about.
 
 This is a question that I feel not enough people ask themselves, or perhaps are not in a position to ask. It's very easy to jump on the bandwagon of the latest popular framework when _employment_ is a concern, but what if it wasn't? What would an _ideal_ way to build WebApps look like for you, personally? What do you value?
 
-My answer to that question is this:
+Selfishly, my answer to that question is this:
 
-> I desire to build GUI applications out of pure, referentially transparent functions operating on immutable data, with a unidirectional data flow, where data and presentation are strictly separate concerns.
+> I want to build GUI applications out of pure, referentially transparent functions operating on immutable data and static types. Where data and presentation are strictly separate concerns, and events all flow in one direction.
 
-Why do I want this? Well, I want..
-
-- ..to be able to scale the program by simple function composition
-- ..to be able to test the code easily
-- ..to be able to comfortably reason about the application's lifecycle, so that I know what is going on.
+The hope is that this will allow the program the scale by simple function composition, with a lot of mechnical assistance from the compiler / typechecker. It should also make testing and our ability to reason about the program fairly straight-forward.
 
 The Elm architecture ticks all of those boxes, but as with all things, there is a tradeoff. The drawbacks as I see them, are as follows:
 
 1. Explicitly managing the lifecycle of effects is more difficult. (e.g. Cancellations)
 2. In complex cases, rendering performance will be slower than other solutions.
 
-The rationale for those drawbacks being acceptable is a question of what you value; I frame it in terms of what abstraction level you prefer to work at. Do you value absolute control with maximum performance and accept increased general complexity, or do you value developer productivity more and are happy to sacrifice some performance to get it?
+The rationale for those drawbacks being acceptable comes back to the question of what do you value? Do you value absolute control with maximum performance and accept increased general complexity; Or do you value developer productivity, and are happy to sacrifice some application performance to get it?
 
-I value the latter more than the former, specifically answering the points above:
+I value developer productivity and programming enjoyment, specifically answering the points above:
 
-1. I believe that managing effect life cycles is less common on the frontend than the backend. So I'll take a simpler application lifecycle in the general case, and accept doing some extra work when I really need it.
-2. I highly value presentation being utterly divorced from application state, and I do not want to manage a node tree where I must add and remove child nodes and so on. All I want to do is have a function that takes the model / state and converts it into something that can be rendered, and for that, I'm willing to accept a slight performance loss. _That is, as long as under normal usage the performance loss is not noticable._
+1. I believe that managing effect life cycles is less common on the frontend (apps / games) than the backend (services). So I'll happily take a simpler application lifecycle in the general case, and accept doing some extra work when I really need it.
+2. I highly value presentation being utterly divorced from application state, and I do not want to manage a node tree where I must add and remove child nodes and so on. All I want to do is have a function that takes the model / state and converts/maps it into something that can be rendered, and for that, I'm willing to accept some performance loss in scenarios not considered "normal" use.
 
 ## Arriving at the Elm architecture, based on need
 
-We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is closer to the canonical TEA pattern than Indigo is for reasons beyond the scope of this post.
+We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is closer to the canonical TEA pattern than Indigo is, for reasons beyond the scope of this post.
 
-That said, this is a general purpose pattern and can apply to any sort of graphical application, be it for example web, games, or mobile apps.
+That said, this is a general purpose pattern and can apply to any sort of graphical application.
 
-We'll going to build up the architecture based on our _needs_:
+We'll going to build up the architecture's APIs from scratch, based on the basic _needs_ of any GUI application:
 
-1. The need to draw something onto the screen
-2. The need to performing the draw based on values that could change
-3. The need to be able to update those values
+1. The need to present something onto the screen
+2. The need to base our presentation on data
+3. The need to be able to update our data
 4. The need to be able to trigger updates based on interactions / user input
 5. The need to interact with the outside world, e.g. networking and IO.
 6. The need to listen to things happening outside our application, e.g. browser events
@@ -76,7 +72,7 @@ This is a function, despite the lack of arguments. Think of it as a thunk: `() =
 
 ### Need 2: Remove the hardcoded values
 
-We'd like to move that `1` out of there so that it isn't hardcoded, and for that we'll need a model (in reassuringly familiar MVC parlance). Here is the model:
+We'd like to move that "1" out of there so that it isn't hardcoded, and for that we'll need a model (in reassuringly familiar MVC parlance). Here is the model:
 
 ```scala
 final case class Model(count: Int)
@@ -168,7 +164,7 @@ These potential updates are all well and good, but something has to trigger them
 
 And now, through the magical machinations of the `TyrianIOApp` runtime, when someone clicks a button, a `Msg` is generated that gets fed into the update function, which changes the model, and the model gets fed into the view which renders it.
 
-### So.. are we done?
+### Let's review
 
 Looks pretty good so far! All our functions are pure and based on immutable data, and it works too! By simply doing the next obvious thing to our application API, we've managed to:
 
@@ -178,22 +174,25 @@ Looks pretty good so far! All our functions are pure and based on immutable data
 4. Update the model
 5. Re-render
 
-Note how deterministic and testable all this is, too.
+Note how deterministic, decoupled, and testable all this is, too!
 
 - Want to test a model update? Call `update` with a known model and message, and you should always get the same result.
 - Want to test the rendering? Give `view` a known model and you should get the same HTML representation every time.
+- Events/messages always and only ever go from the view back around to the update function.
 
-Our API is still nice and simple, and covers the requirements for a basic GUI app doesn't it? What else is there?
+Our API is still nice and simple, and at first glance, seems to cover all the requirements for a basic GUI app.
 
-> Note that this section is true for Tyrian, but is where Indigo begins to deviate from the traditional Elm architecture. This section is still worth understanding, but if you're specifically interested in Indigo, don't be surprised when you don't see this there.
+> Note that everything up to this point is true for Tyrian and Indigo, but this is where Indigo begins to deviate from the traditional Elm architecture. The up-coming concepts are still worth understanding even if you're particularly interested in Indigo.
 
 ### Need 5: Side effects
 
-Unfortunately our elegant little architecture won't be enough for anything beyond trivial applications. In the real world of web apps and GUIs, you need to be able to perform 'side effects'.
+Unfortunately our elegant little architecture won't be enough for anything beyond simple applications. A calculator, perhaps.
+
+In the real world of web apps and GUIs, you usually need to be able to perform 'side effects' in order to do more meaningful work.
 
 Side effects are anything that breaks out of your nice comfortable application loop and interacts with the outside world in some way. Examples include such activities as writing logs, making HTTP calls, calling JavaScript, and saving data to local storage.
 
-Ok, first question: _When_ are we going to want to do side effects? Instinctively you'd probably say "for example, when someone presses a button" or "as a result of some calculation".
+Ok, first question: _When_ are we going to want to do side effects? Instinctively you'd probably say something like "when someone presses a button" or "as a result of some calculation".
 
 In our current setup, pressing a button produces a `Msg`, so maybe we could generalise that to "after we process a message"?
 
@@ -203,16 +202,16 @@ So in fact, we'd like to be able to run a side effect _whenever we produce a mod
 
 #### Cmd (Command)
 
-Side effects are encoded into 'Commands' (Cmd). There are a range of predefined `Cmd`'s, but what they do is wrap up a side effect that produces some result (or not), in the form of some effectful monad (in Tyrian, that's `IO` or `ZIO`).
+Side effects are encoded into 'Commands' (`Cmd`). There are a range of predefined `Cmd`'s, but what they do is wrap up a side effect that produces some result (or not), in the form of some effectful monad (in Tyrian, that's `IO` or `ZIO`).
 
 Here are a few examples:
 
 - `Cmd.None` - Is our identity command that does nothing
 - `Cmd.Emit(msg)` - Simply produces another `Msg` in order to trigger another update
 - `Cmd.SideEffect(...)` - Is typically used for fire-and-forget actions
-- `Cmd.Run(task, toMessage)` - Run's an effect and turns the result into a `Msg`.
+- `Cmd.Run(task, toMessage)` - Runs an effect and turns the result into a `Msg`.
 
-There are specialised `Cmd`s, like `Logger` and `Http`, but if we wanted to make one that just prints to the console, we could simply do this:
+If we wanted to make a command that just prints to the console, we could simply do this:
 
 `Cmd.SideEffect(println("Hello, World!"))`
 
@@ -227,7 +226,7 @@ Taking the `init` function as an example, we currently have this:
     Model(1)
 ```
 
-But now we want to produce a `Model`, and a `Cmd`, which we can do as follows:
+But now we want to produce a `Model`, and a `Cmd`, which we can do by returning a tuple:
 
 ```scala
   def init: (Model, Cmd[IO, Msg]) =
@@ -307,11 +306,13 @@ enum Msg:
   case Increment, Decrement
 ```
 
+In this example, I've added the final part of the API, `subscriptions`, but in this case we aren't listening to anything.
+
 ## Turning it into a real Tyrian app
 
 What we have created is a hypothetical app based on the principles of the Elm architecture. How far from a real, working web app is it?
 
-Pretty close! Here is the real version, which you can try for yourself if you head over to [scribble.ninja](https://scribble.ninja/).
+Pretty close! Here is the real version, which you can try for yourself if you head over to [scribble.ninja](https://scribble.ninja/) and paste it into the editor.
 
 ```scala
 package example
@@ -361,8 +362,14 @@ enum Msg:
 
 ## Summary
 
-From our basic need of wanting to design a GUI API architecture that runs on pure functions and immutable data, we have built up a set of functions that have resulted in the Elm Architecture.
+All GUI applicatons follow the same basic principles. Elm may be relatively new, but you can look right back to the MVC pattern and find the same basics needs being met:
 
-We haven't talked about how the runtime actually invoked these functions, though it isn't terribly complicated, nor have we discussed how the HTML representation is actually rendered to the browser by the VirtualDOM, or the implications of that.
+You need to accept input from the user and the world, you need to convert the input into model/state updates, you need to render the model into a view, and you need to be able to subsequently affect the outside world.
 
-We have shown the clean and elegant nature of the Elm architecture though. The next challenge is scaling it.
+All GUI design patterns / architectures work like this, but they differ in the details and the focus / importance they place on the different relationships between the core pillars of the Model, View, and Controller, and the exact forms those things take.
+
+As a thought exercise: Consider how these things manifest in the API's of other popular frontend solutions you may be familiar with. What are the implications of more tightly coupled view and state? What kind of apps are possible with a weaker / strong notion of the controller? What happens when you state using reactive values / data-binding? None of them are wrong, but they all represent trade-offs that will affect your experience when developing in these frameworks.
+
+The Elm architecture emphasises the importance of decoupling state from the presentation from the update lifecycle. It's elegant use of pure functions, immutable data, and unidirection event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat.
+
+The next conceptual challenge though, is how to scale it.
