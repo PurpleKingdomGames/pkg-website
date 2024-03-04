@@ -6,6 +6,8 @@ authorTwitter: davidjamessmith
 authorImageURL: /img/davesmith00000.png
 ---
 
+![Deriving the Elm Architecture](/img/blog/decoding_a_tree.jpeg)
+
 [Indigo](https://github.com/PurpleKingdomGames/indigo) and [Tyrian](https://github.com/PurpleKingdomGames/tyrian) are both based on flavours of the [Elm](https://elm-lang.org/) architecture; But why that architecture pattern, and how does it work?
 
 In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.
