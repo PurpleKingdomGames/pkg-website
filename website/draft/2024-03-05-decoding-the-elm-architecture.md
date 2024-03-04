@@ -6,7 +6,7 @@ authorTwitter: davidjamessmith
 authorImageURL: /img/davesmith00000.png
 ---
 
-Indigo and Tyrian are both based on flavours of the Elm architecture; But why that architecture pattern, and how does it work?
+[Indigo](https://github.com/PurpleKingdomGames/indigo) and [Tyrian](https://github.com/PurpleKingdomGames/tyrian) are both based on flavours of the [Elm](https://elm-lang.org/) architecture; But why that architecture pattern, and how does it work?
 
 In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.
 
@@ -362,14 +362,16 @@ enum Msg:
 
 ## Summary
 
-All GUI applications follow the same basic principles. Elm may be relatively new, but you can look right back to the MVC pattern and find the same needs being met:
+All GUI applications follow the same basic principles. Elm may be relatively young, but you can look right back to the [MVC pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) and find the same needs being met:
 
-You need to accept input from the user and the world, you need to convert the input into model/state updates, you need to render the model into a view, and you need to be able to subsequently affect the outside world and feedback into the loop.
+You need to accept input from the user and the world, you need to convert the input into model/state updates, you need to render the model into a view, and you need to be able to subsequently affect the outside world and feed updates back into the loop again.
 
 All GUI design patterns / architectures work like this, but they differ in the details and the focus / importance they place on the different relationships between the core pillars of the Model, View, and Controller, and the exact forms those things take.
 
-As a thought exercise: Consider how these things manifest in the API's of other popular frontend solutions you may be familiar with. What are the implications of a more tightly coupled view and state? What kind of apps are possible with a weaker / strong notion of the controller? What happens to rendering and testing, when you start using reactive values / data-binding? None of these considerations are right or wrong, but they all represent trade-offs that will affect your experience and enjoyment when developing in these frameworks.
+As a thought exercise: Consider how these things manifest in the API's of other popular frontend solutions that you may be familiar with. What are the implications of a more tightly coupled view and state? What kind of apps are possible with weaker / stronger notions of the controller? What happens to rendering and testing, when you start using reactive values / data-binding?
 
-In technical terms, the Elm architecture emphasises the importance of decoupling the state, from the presentation, from the update lifecycle. It's elegant use of pure functions, immutable data, and unidirectional event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat. More than that, on a human level, I think it potentially offers the most pleasant and enjoyable way to build complex GUI applications.
+None of these considerations are right or wrong, but they do all represent trade-offs that will influence the nature of your application, and your experience and enjoyment while developing it.
 
-The next conceptual challenge is how to scale it.
+In technical terms, the Elm architecture emphasises the importance of decoupling the state, from the presentation, from the update lifecycle. Its elegant use of pure functions, immutable data, and unidirectional event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat. More than that, on a human level, I think it potentially offers the most pleasant and enjoyable way to build complex GUI applications.
+
+The next conceptual challenge to overcome, is how to scale it.
