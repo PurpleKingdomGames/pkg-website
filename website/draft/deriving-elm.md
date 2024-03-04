@@ -16,7 +16,7 @@ In this post, we define some desired principles of how we'd like to program a Gr
 
 The Elm Architecture, affectionately called the TEA pattern, is the architectural pattern borne out of the Elm programming language.
 
-Elm tends to polarise opinions, but in my view, whether you love Elm the language or not, the architecture itself is the best GUI architecture pattern anyone has come up with so far.
+Elm tends to polarise opinions, but in my view, whether you love Elm-the-language or not, the architecture itself is the best GUI architecture pattern anyone has come up with so far.
 
 Let's dig in to how it comes about.
 
@@ -28,18 +28,18 @@ Selfishly, my answer to that question is this:
 
 > I want to build GUI applications out of pure, referentially transparent functions operating on immutable data and static types. Where data and presentation are strictly separate concerns, and events all flow in one direction.
 
-The hope is that this will allow the program the scale by simple function composition, with a lot of mechnical assistance from the compiler / typechecker. It should also make testing and our ability to reason about the program fairly straight-forward.
+The hope is that this will allow the program the scale by simple function composition, and allow the compiler / typechecker to provide a lot of mechnical assistance to aid correctness. It should also make testing, and our ability to reason about the program, fairly straight-forward.
 
-The Elm architecture ticks all of those boxes, but as with all things, there is a tradeoff. The drawbacks as I see them, are as follows:
+The Elm architecture ticks all of those boxes, but as with all things, there are tradeoffs. The drawbacks as I see them, are as follows:
 
 1. Explicitly managing the lifecycle of effects is more difficult. (e.g. Cancellations)
 2. In complex cases, rendering performance will be slower than other solutions.
 
-The rationale for those drawbacks being acceptable comes back to the question of what do you value? Do you value absolute control with maximum performance and accept increased general complexity; Or do you value developer productivity, and are happy to sacrifice some application performance to get it?
+The rationale for those drawbacks being acceptable comes back to the question of "what do you value?" Do you value absolute control with maximum performance, and accept increased general complexity; Or do you value developer productivity, and are happy to sacrifice some application performance to get it?
 
 I value developer productivity and programming enjoyment, specifically answering the points above:
 
-1. I believe that managing effect life cycles is less common on the frontend (apps / games) than the backend (services). So I'll happily take a simpler application lifecycle in the general case, and accept doing some extra work when I really need it.
+1. I believe that managing effect life cycles is less common on the frontend (apps / games) than the backend (services). So I'll happily take a simpler application lifecycle in the general case, and accept doing a little extra work when I really need it.
 2. I highly value presentation being utterly divorced from application state, and I do not want to manage a node tree where I must add and remove child nodes and so on. All I want to do is have a function that takes the model / state and converts/maps it into something that can be rendered, and for that, I'm willing to accept some performance loss in scenarios not considered "normal" use.
 
 ## Arriving at the Elm architecture, based on need
@@ -48,7 +48,7 @@ We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is
 
 That said, this is a general purpose pattern and can apply to any sort of graphical application.
 
-We'll going to build up the architecture's APIs from scratch, based on the basic _needs_ of any GUI application:
+We're going to build up the architecture's APIs from scratch, based on the basic _needs_ of any GUI application:
 
 1. The need to present something onto the screen
 2. The need to base our presentation on data
@@ -151,7 +151,7 @@ enum Msg:
 
 ### Need 4: Triggering an update
 
-These potential updates are all well and good, but something has to trigger them, right? How about a couple of buttons? We'll need to improve our `Html` type a bit, to `Html[Msg]` but then we can have a view function like this:
+These 'potential' updates are all well and good, but something has to trigger them, right? How about a couple of buttons? We'll need to improve our `Html` type a bit, to `Html[Msg]` but then we can have a view function like this:
 
 ```scala
   def view(model: Model): Html[Msg] = 
@@ -178,25 +178,25 @@ Note how deterministic, decoupled, and testable all this is, too!
 
 - Want to test a model update? Call `update` with a known model and message, and you should always get the same result.
 - Want to test the rendering? Give `view` a known model and you should get the same HTML representation every time.
-- Events/messages always and only ever go from the view back around to the update function.
+- Events/messages always and only ever go from the view, back around to the update function.
 
-Our API is still nice and simple, and at first glance, seems to cover all the requirements for a basic GUI app.
+Our API is still nice and simple, and at first glance, seems to cover all the requirements for a basic GUI app. A calculator, perhaps, or a simple game.
 
-> Note that everything up to this point is true for Tyrian and Indigo, but this is where Indigo begins to deviate from the traditional Elm architecture. The up-coming concepts are still worth understanding even if you're particularly interested in Indigo.
+> Note that everything up to this point is true for Tyrian and Indigo, but this is where Indigo begins to deviate from the traditional Elm architecture. The up-coming concepts are still worth understanding even if you're more interested in Indigo than Tyrian.
 
 ### Need 5: Side effects
 
-Unfortunately our elegant little architecture won't be enough for anything beyond simple applications. A calculator, perhaps.
+Unfortunately our elegant little architecture won't be enough for anything beyond simple applications.
 
 In the real world of web apps and GUIs, you usually need to be able to perform 'side effects' in order to do more meaningful work.
 
-Side effects are anything that breaks out of your nice comfortable application loop and interacts with the outside world in some way. Examples include such activities as writing logs, making HTTP calls, calling JavaScript, and saving data to local storage.
+Side effects are anything that breaks out of your nice comfortable application loop and interacts with the outside world in some way. Examples include such activities as writing logs, making HTTP requests, calling JavaScript, and saving data to local storage.
 
 Ok, first question: _When_ are we going to want to do side effects? Instinctively you'd probably say something like "when someone presses a button" or "as a result of some calculation".
 
 In our current setup, pressing a button produces a `Msg`, so maybe we could generalise that to "after we process a message"?
 
-There is one other time you might want to perform a side effect too, which is on application startup. Perhaps you need to call a web service to load some data to populate the homepage of your app. You don't want to wait for a user interaction, you just want to do it immediately.
+...but there is one other time you might want to perform a side effect too, which is on application startup. Perhaps you need to call a web service to load some data to populate the homepage of your app. You don't want to wait for a user interaction, you want to do it immediately.
 
 So in fact, we'd like to be able to run a side effect _whenever we produce a model_.
 
@@ -206,9 +206,9 @@ Side effects are encoded into 'Commands' (`Cmd`). There are a range of predefine
 
 Here are a few examples:
 
-- `Cmd.None` - Is our identity command that does nothing
-- `Cmd.Emit(msg)` - Simply produces another `Msg` in order to trigger another update
-- `Cmd.SideEffect(...)` - Is typically used for fire-and-forget actions
+- `Cmd.None` - Is an identity command that does nothing.
+- `Cmd.Emit(msg)` - Simply produces another `Msg` in order to trigger another update.
+- `Cmd.SideEffect(...)` - Is typically used for fire-and-forget actions.
 - `Cmd.Run(task, toMessage)` - Runs an effect and turns the result into a `Msg`.
 
 If we wanted to make a command that just prints to the console, we could simply do this:
@@ -271,7 +271,7 @@ What if you'd like to 'subscribe' to WebSocket events? What if you need a regula
 
 'Subscribe' was the key word there, and we create subscriptions by providing a way to register `Sub`s.
 
-As with `Cmd`s, there are a range of built-in `Sub` types, but a simple example might be `Sub.fromEvent(eventName, eventTarget)(toMessage)`, which is used to listen for browser events. When an event is collected, it is converted into a `Msg` and passed to our `update` function as usual.
+As with `Cmd`s, there are a range of built-in `Sub` types, but a simple example might be `Sub.fromEvent(eventName, eventTarget)(toMessage)`, which is used to listen for browser events. When an event is collected, it is converted into a `Msg` and passed to our `update` function, as usual.
 
 Let's add this final requirement to our API, and our example:
 
@@ -362,14 +362,14 @@ enum Msg:
 
 ## Summary
 
-All GUI applicatons follow the same basic principles. Elm may be relatively new, but you can look right back to the MVC pattern and find the same basics needs being met:
+All GUI applications follow the same basic principles. Elm may be relatively new, but you can look right back to the MVC pattern and find the same needs being met:
 
-You need to accept input from the user and the world, you need to convert the input into model/state updates, you need to render the model into a view, and you need to be able to subsequently affect the outside world.
+You need to accept input from the user and the world, you need to convert the input into model/state updates, you need to render the model into a view, and you need to be able to subsequently affect the outside world and feedback into the loop.
 
 All GUI design patterns / architectures work like this, but they differ in the details and the focus / importance they place on the different relationships between the core pillars of the Model, View, and Controller, and the exact forms those things take.
 
-As a thought exercise: Consider how these things manifest in the API's of other popular frontend solutions you may be familiar with. What are the implications of more tightly coupled view and state? What kind of apps are possible with a weaker / strong notion of the controller? What happens when you state using reactive values / data-binding? None of them are wrong, but they all represent trade-offs that will affect your experience when developing in these frameworks.
+As a thought exercise: Consider how these things manifest in the API's of other popular frontend solutions you may be familiar with. What are the implications of a more tightly coupled view and state? What kind of apps are possible with a weaker / strong notion of the controller? What happens to rendering and testing, when you start using reactive values / data-binding? None of these considerations are right or wrong, but they all represent trade-offs that will affect your experience and enjoyment when developing in these frameworks.
 
-The Elm architecture emphasises the importance of decoupling state from the presentation from the update lifecycle. It's elegant use of pure functions, immutable data, and unidirection event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat.
+In technical terms, the Elm architecture emphasises the importance of decoupling the state, from the presentation, from the update lifecycle. It's elegant use of pure functions, immutable data, and unidirectional event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat. More than that, on a human level, I think it potentially offers the most pleasant and enjoyable way to build complex GUI applications.
 
-The next conceptual challenge though, is how to scale it.
+The next conceptual challenge is how to scale it.
