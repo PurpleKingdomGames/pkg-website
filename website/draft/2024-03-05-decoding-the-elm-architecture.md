@@ -1,5 +1,5 @@
 ---
-title: Deriving the Elm Architecture
+title: Decoding the Elm Architecture
 author: Dave Smith
 authorURL: http://twitter.com/davidjamessmith
 authorTwitter: davidjamessmith
