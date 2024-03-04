@@ -17,3 +17,5 @@ website/i18n/*
 
 # IDE specific
 .vscode/
+.metals
+.bloop
