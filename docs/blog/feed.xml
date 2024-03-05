@@ -4,7 +4,7 @@
         <title>Purple Kingdom Games Blog</title>
         <link>https://purplekingdomgames.com//blog</link>
         <description>The best place to stay up-to-date with the latest Purple Kingdom Games news and events.</description>
-        <lastBuildDate>Sat, 03 Feb 2024 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 05 Mar 2024 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,16 @@
             <link>https://purplekingdomgames.com//blog</link>
         </image>
         <copyright>Copyright © 2024 Purple Kingdom Games Ltd.</copyright>
+        <item>
+            <title><![CDATA[Deriving the Elm Architecture]]></title>
+            <link>https://purplekingdomgames.com//blog/2024/03/05/deriving-the-elm-architecture.html</link>
+            <guid>https://purplekingdomgames.com//blog/2024/03/05/deriving-the-elm-architecture.html</guid>
+            <pubDate>Tue, 05 Mar 2024 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p><img src="/img/blog/decoding_a_tree.jpeg" alt="Deriving the Elm Architecture"></p>
+<p><a href="https://github.com/PurpleKingdomGames/indigo">Indigo</a> and <a href="https://github.com/PurpleKingdomGames/tyrian">Tyrian</a> are both based on flavours of the <a href="https://elm-lang.org/">Elm</a> architecture; But why that architecture pattern, and how does it work?</p>
+<p>In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.</p>
+]]></description>
+        </item>
         <item>
             <title><![CDATA[Loveable Scala Rogues]]></title>
             <link>https://purplekingdomgames.com//blog/2024/02/03/loveable-scala-rogues.html</link>

@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Deriving the Elm Architecture · Purple Kingdom Games</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Indigo](https://github.com/PurpleKingdomGames/indigo) and [Tyrian](https://github.com/PurpleKingdomGames/tyrian) are both based on flavours of the [Elm](https://elm-lang.org/) architecture; But why that architecture pattern, and how does it work?"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Deriving the Elm Architecture · Purple Kingdom Games"/><meta property="og:type" content="website"/><meta property="og:url" content="https://purplekingdomgames.com//blog/2024/03/05/deriving-the-elm-architecture"/><meta property="og:description" content="[Indigo](https://github.com/PurpleKingdomGames/indigo) and [Tyrian](https://github.com/PurpleKingdomGames/tyrian) are both based on flavours of the [Elm](https://elm-lang.org/) architecture; But why that architecture pattern, and how does it work?"/><meta property="og:image" content="https://purplekingdomgames.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://purplekingdomgames.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/pk-small.svg"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://purplekingdomgames.com/blog/atom.xml" title="Purple Kingdom Games Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://purplekingdomgames.com/blog/feed.xml" title="Purple Kingdom Games Blog RSS Feed"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-123348618-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/main.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/pk-small.svg" alt="Purple Kingdom Games"/><h2 class="headerTitleWithLogo">Purple Kingdom Games</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/blog/" target="_self">Blog</a></li><li class=""><a href="https://discord.gg/b5CD47g" target="_blank">Discord</a></li><li class=""><a href="https://github.com/sponsors/PurpleKingdomGames" target="_blank">Sponsor us! 💜</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>All blog posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">All blog posts</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/blog/2024/03/05/deriving-the-elm-architecture">Deriving the Elm Architecture</a></li><li class="navListItem"><a class="navItem" href="/blog/2024/02/03/loveable-scala-rogues">Loveable Scala Rogues</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2024/03/05/deriving-the-elm-architecture">Deriving the Elm Architecture</a></h1><p class="post-meta">March 5, 2024</p><div class="authorBlock"><p class="post-authorName"><a href="http://twitter.com/davidjamessmith" target="_blank" rel="noreferrer noopener">Dave Smith</a></p><div class="authorPhoto"><a href="http://twitter.com/davidjamessmith" target="_blank" rel="noreferrer noopener"><img src="/img/davesmith00000.png" alt="Dave Smith"/></a></div></div></header><div><span><p><img src="/img/blog/decoding_a_tree.jpeg" alt="Deriving the Elm Architecture"></p>
+<p><a href="https://github.com/PurpleKingdomGames/indigo">Indigo</a> and <a href="https://github.com/PurpleKingdomGames/tyrian">Tyrian</a> are both based on flavours of the <a href="https://elm-lang.org/">Elm</a> architecture; But why that architecture pattern, and how does it work?</p>
+<p>In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.</p>
+<!--truncate-->
+<h2><a class="anchor" aria-hidden="true" id="background"></a><a href="#background" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Background</h2>
+<p>The Elm Architecture, affectionately called the TEA pattern, is the architectural pattern borne out of the Elm programming language.</p>
+<p>Elm tends to polarise opinions, but in my view, whether you love Elm-the-language or not, the architecture itself is the best GUI architecture pattern anyone has come up with so far.</p>
+<p>Let's dig in to how it comes about.</p>
+<h2><a class="anchor" aria-hidden="true" id="first-principles-how-do-_i_-want-to-program-guis"></a><a href="#first-principles-how-do-_i_-want-to-program-guis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>First Principles: How do <em>I</em> want to program GUIs?</h2>
+<p>This is a question that I feel not enough people ask themselves, or perhaps are not in a position to ask. It's very easy to jump on the bandwagon of the latest popular framework when <em>employment</em> is a concern, but what if it wasn't? What would an <em>ideal</em> way to build WebApps look like for you, personally? What do you value?</p>
+<p>Selfishly, my answer to that question is this:</p>
+<blockquote>
+<p>I want to build GUI applications out of pure, referentially transparent functions operating on immutable data and static types. Where data and presentation are strictly separate concerns, and events all flow in one direction.</p>
+</blockquote>
+<p>The hope is that this will allow the program the scale by simple function composition, and allow the compiler / typechecker to provide a lot of mechnical assistance to aid correctness. It should also make testing, and our ability to reason about the program, fairly straight-forward.</p>
+<p>The Elm architecture ticks all of those boxes, but as with all things, there are tradeoffs. The drawbacks as I see them, are as follows:</p>
+<ol>
+<li>Explicitly managing the lifecycle of effects is more difficult. (e.g. Cancellations)</li>
+<li>In complex cases, rendering performance will be slower than other solutions.</li>
+</ol>
+<p>The rationale for those drawbacks being acceptable comes back to the question of &quot;what do you value?&quot; Do you value absolute control with maximum performance, and accept increased general complexity; Or do you value developer productivity, and are happy to sacrifice some application performance to get it?</p>
+<p>I value developer productivity and programming enjoyment, specifically answering the points above:</p>
+<ol>
+<li>I believe that managing effect life cycles is less common on the frontend (apps / games) than the backend (services). So I'll happily take a simpler application lifecycle in the general case, and accept doing a little extra work when I really need it.</li>
+<li>I highly value presentation being utterly divorced from application state, and I do not want to manage a node tree where I must add and remove child nodes and so on. All I want to do is have a function that takes the model / state and converts/maps it into something that can be rendered, and for that, I'm willing to accept some performance loss in scenarios not considered &quot;normal&quot; use.</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="arriving-at-the-elm-architecture-based-on-need"></a><a href="#arriving-at-the-elm-architecture-based-on-need" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arriving at the Elm architecture, based on need</h2>
+<p>We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is closer to the canonical TEA pattern than Indigo is, for reasons beyond the scope of this post.</p>
+<p>That said, this is a general purpose pattern and can apply to any sort of graphical application.</p>
+<p>We're going to build up the architecture's APIs from scratch, based on the basic <em>needs</em> of any GUI application:</p>
+<ol>
+<li>The need to present something onto the screen</li>
+<li>The need to base our presentation on data</li>
+<li>The need to be able to update our data</li>
+<li>The need to be able to trigger updates based on interactions / user input</li>
+<li>The need to interact with the outside world, e.g. networking and IO.</li>
+<li>The need to listen to things happening outside our application, e.g. browser events</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="need-1-to-draw-something"></a><a href="#need-1-to-draw-something" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Need 1: To draw something</h3>
+<p>Let's draw HTML with a function:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span></span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>: <span class="hljs-type">Html</span> = 
+    div(p(<span class="hljs-string">"Count: 1"</span>))
+</code></pre>
+<p>This is a function, despite the lack of arguments. Think of it as a thunk: <code>() =&gt; Html</code></p>
+<h3><a class="anchor" aria-hidden="true" id="need-2-remove-the-hardcoded-values"></a><a href="#need-2-remove-the-hardcoded-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Need 2: Remove the hardcoded values</h3>
+<p>We'd like to move that &quot;1&quot; out of there so that it isn't hardcoded, and for that we'll need a model (in reassuringly familiar MVC parlance). Here is the model:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">final</span> <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">count: <span class="hljs-type">Int</span></span>)</span>
+</code></pre>
+<p>We'll need to initialise the model somewhere, and because we want pure functions, we'll also need to give it to the view function.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TyrianIOApp</span></span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: <span class="hljs-type">Model</span> =
+    <span class="hljs-type">Model</span>(<span class="hljs-number">1</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span> = 
+    div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+</code></pre>
+<p>So now we have two functions:</p>
+<ul>
+<li><code>init</code> which is <code>() =&gt; Model</code></li>
+<li><code>view</code>, which is <code>Model =&gt; Html</code></li>
+</ul>
+<p>Notice that I've included <code>TyrianIOApp</code>. This is the runtime of our application, don't worry about it, it's just the thing that calls these pure functions at the right times. In this case, all it would need to do is <code>view(init)</code>.</p>
+<p>I've used the real <code>TyrianIOApp</code> term to hopefully avoid confusion. Indigo uses other terms like <code>IndigoGame</code>, and don't forget that Tyrian also supports ZIO with <code>TyrianZIOApp</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="need-3-updating-the-model"></a><a href="#need-3-updating-the-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Need 3: Updating the model</h3>
+<p>The static number in our model isn't much use unless we can update it somehow. We need another function that knows how to do that, i.e. <code>Model =&gt; Model</code></p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TyrianIOApp</span></span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: <span class="hljs-type">Model</span> =
+    <span class="hljs-type">Model</span>(<span class="hljs-number">1</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Model</span> =
+    model
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span> = 
+    div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">count: <span class="hljs-type">Int</span></span>)</span>
+</code></pre>
+<p>Hmmm. That's not quite good enough is it? On what basis are we doing the update and when? We need some sort of 'message' to tell the update function to do some work. Let's go with this:</p>
+<pre><code class="hljs css language-scala">enum <span class="hljs-type">Msg</span>:
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Increment</span>, <span class="hljs-type">Decrement</span>
+</code></pre>
+<p>Which gives us a function <code>Model =&gt; Msg =&gt; Model</code>, like so:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TyrianIOApp</span></span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: <span class="hljs-type">Model</span> =
+    <span class="hljs-type">Model</span>(<span class="hljs-number">1</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Msg</span> =&gt; <span class="hljs-type">Model</span> =
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span> =&gt;
+      model.copy(count = model.count + <span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span> =&gt;
+      model.copy(count = model.count - <span class="hljs-number">1</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span> = 
+    div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">count: <span class="hljs-type">Int</span></span>)</span>
+
+enum <span class="hljs-type">Msg</span>:
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Increment</span>, <span class="hljs-type">Decrement</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="need-4-triggering-an-update"></a><a href="#need-4-triggering-an-update" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Need 4: Triggering an update</h3>
+<p>These 'potential' updates are all well and good, but something has to trigger them, right? How about a couple of buttons? We'll need to improve our <code>Html</code> type a bit, to <code>Html[Msg]</code> but then we can have a view function like this:</p>
+<pre><code class="hljs css language-scala">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span>[<span class="hljs-type">Msg</span>] = 
+    div(
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span>))(<span class="hljs-string">"-"</span>),
+      div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>)),
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span>))(<span class="hljs-string">"+"</span>)
+    )
+</code></pre>
+<p>And now, through the magical machinations of the <code>TyrianIOApp</code> runtime, when someone clicks a button, a <code>Msg</code> is generated that gets fed into the update function, which changes the model, and the model gets fed into the view which renders it.</p>
+<h3><a class="anchor" aria-hidden="true" id="lets-review"></a><a href="#lets-review" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Let's review</h3>
+<p>Looks pretty good so far! All our functions are pure and based on immutable data, and it works too! By simply doing the next obvious thing to our application API, we've managed to:</p>
+<ol>
+<li>Initialise a model</li>
+<li>Render it</li>
+<li>Accept user input</li>
+<li>Update the model</li>
+<li>Re-render</li>
+</ol>
+<p>Note how deterministic, decoupled, and testable all this is, too!</p>
+<ul>
+<li>Want to test a model update? Call <code>update</code> with a known model and message, and you should always get the same result.</li>
+<li>Want to test the rendering? Give <code>view</code> a known model and you should get the same HTML representation every time.</li>
+<li>Events/messages always and only ever go from the view, back around to the update function.</li>
+</ul>
+<p>Our API is still nice and simple, and at first glance, seems to cover all the requirements for a basic GUI app. A calculator, perhaps, or a simple game.</p>
+<blockquote>
+<p>Note that everything up to this point is true for Tyrian and Indigo, but this is where Indigo begins to deviate from the traditional Elm architecture. The up-coming concepts are still worth understanding even if you're more interested in Indigo than Tyrian.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="need-5-side-effects"></a><a href="#need-5-side-effects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Need 5: Side effects</h3>
+<p>Unfortunately our elegant little architecture won't be enough for anything beyond simple applications.</p>
+<p>In the real world of web apps and GUIs, you usually need to be able to perform 'side effects' in order to do more meaningful work.</p>
+<p>Side effects are anything that breaks out of your nice comfortable application loop and interacts with the outside world in some way. Examples include such activities as writing logs, making HTTP requests, calling JavaScript, and saving data to local storage.</p>
+<p>Ok, first question: <em>When</em> are we going to want to do side effects? Instinctively you'd probably say something like &quot;when someone presses a button&quot; or &quot;as a result of some calculation&quot;.</p>
+<p>In our current setup, pressing a button produces a <code>Msg</code>, so maybe we could generalise that to &quot;after we process a message&quot;?</p>
+<p>...but there is one other time you might want to perform a side effect too, which is on application startup. Perhaps you need to call a web service to load some data to populate the homepage of your app. You don't want to wait for a user interaction, you want to do it immediately.</p>
+<p>So in fact, we'd like to be able to run a side effect <em>whenever we produce a model</em>.</p>
+<h4><a class="anchor" aria-hidden="true" id="cmd-command"></a><a href="#cmd-command" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cmd (Command)</h4>
+<p>Side effects are encoded into 'Commands' (<code>Cmd</code>). There are a range of predefined <code>Cmd</code>'s, but what they do is wrap up a side effect that produces some result (or not), in the form of some effectful monad (in Tyrian, that's <code>IO</code> or <code>ZIO</code>).</p>
+<p>Here are a few examples:</p>
+<ul>
+<li><code>Cmd.None</code> - Is an identity command that does nothing.</li>
+<li><code>Cmd.Emit(msg)</code> - Simply produces another <code>Msg</code> in order to trigger another update.</li>
+<li><code>Cmd.SideEffect(...)</code> - Is typically used for fire-and-forget actions.</li>
+<li><code>Cmd.Run(task, toMessage)</code> - Runs an effect and turns the result into a <code>Msg</code>.</li>
+</ul>
+<p>If we wanted to make a command that just prints to the console, we could simply do this:</p>
+<p><code>Cmd.SideEffect(println(&quot;Hello, World!&quot;))</code></p>
+<p>There are also <code>Cmd</code>'s for combining <code>Cmd</code>s, like <code>Cmd.Combine</code> and <code>Cmd.Batch</code>.</p>
+<h4><a class="anchor" aria-hidden="true" id="adding-cmds-to-our-architecture"></a><a href="#adding-cmds-to-our-architecture" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding Cmds to our architecture</h4>
+<p>Taking the <code>init</code> function as an example, we currently have this:</p>
+<pre><code class="hljs css language-scala">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: <span class="hljs-type">Model</span> =
+    <span class="hljs-type">Model</span>(<span class="hljs-number">1</span>)
+</code></pre>
+<p>But now we want to produce a <code>Model</code>, and a <code>Cmd</code>, which we can do by returning a tuple:</p>
+<pre><code class="hljs css language-scala">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    (<span class="hljs-type">Model</span>(<span class="hljs-number">1</span>), <span class="hljs-type">Cmd</span>.<span class="hljs-type">None</span>)
+</code></pre>
+<p>Easy enough, let's do the same thing with update, and print the count to the console when it changes:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TyrianIOApp</span></span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    (<span class="hljs-type">Model</span>(<span class="hljs-number">1</span>), <span class="hljs-type">Cmd</span>.<span class="hljs-type">None</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Msg</span> =&gt; (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span> =&gt;
+      <span class="hljs-keyword">val</span> cmd = <span class="hljs-type">Cmd</span>.<span class="hljs-type">SideEffect</span>(println(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+      (model.copy(count = model.count + <span class="hljs-number">1</span>), cmd)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span> =&gt;
+      <span class="hljs-keyword">val</span> cmd = <span class="hljs-type">Cmd</span>.<span class="hljs-type">SideEffect</span>(println(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+      (model.copy(count = model.count - <span class="hljs-number">1</span>), cmd)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span>[<span class="hljs-type">Msg</span>] = 
+    div(
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span>))(<span class="hljs-string">"-"</span>),
+      div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>)),
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span>))(<span class="hljs-string">"+"</span>)
+    )
+
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">count: <span class="hljs-type">Int</span></span>)</span>
+
+enum <span class="hljs-type">Msg</span>:
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Increment</span>, <span class="hljs-type">Decrement</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="need-6-listening-for-other-inputs"></a><a href="#need-6-listening-for-other-inputs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Need 6: Listening for other inputs</h3>
+<p><code>Cmd</code>'s allow our architecture to trigger events that make things happen, but if you were paying attention, you may have noticed that those sorts of effects are <em>always</em> going to originate from a user interaction. Pressing a button, typing some text, dragging a slider and so on, can all trigger <code>Cmd</code>s, but what if you want to respond to non-user input and events?</p>
+<p>What if you'd like to 'subscribe' to WebSocket events? What if you need a regular timer for running animation frames? What if the browser location changes and you need to show a different page?</p>
+<p>'Subscribe' was the key word there, and we create subscriptions by providing a way to register <code>Sub</code>s.</p>
+<p>As with <code>Cmd</code>s, there are a range of built-in <code>Sub</code> types, but a simple example might be <code>Sub.fromEvent(eventName, eventTarget)(toMessage)</code>, which is used to listen for browser events. When an event is collected, it is converted into a <code>Msg</code> and passed to our <code>update</code> function, as usual.</p>
+<p>Let's add this final requirement to our API, and our example:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TyrianIOApp</span></span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>: (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    (<span class="hljs-type">Model</span>(<span class="hljs-number">1</span>), <span class="hljs-type">Cmd</span>.<span class="hljs-type">None</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Msg</span> =&gt; (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span> =&gt;
+      <span class="hljs-keyword">val</span> cmd = <span class="hljs-type">Cmd</span>.<span class="hljs-type">SideEffect</span>(println(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+      (model.copy(count = model.count + <span class="hljs-number">1</span>), cmd)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span> =&gt;
+      <span class="hljs-keyword">val</span> cmd = <span class="hljs-type">Cmd</span>.<span class="hljs-type">SideEffect</span>(println(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+      (model.copy(count = model.count - <span class="hljs-number">1</span>), cmd)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span>[<span class="hljs-type">Msg</span>] = 
+    div(
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span>))(<span class="hljs-string">"-"</span>),
+      div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>)),
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span>))(<span class="hljs-string">"+"</span>)
+    )
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">subscriptions</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Sub</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>] =
+    <span class="hljs-type">Sub</span>.<span class="hljs-type">None</span>
+
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">count: <span class="hljs-type">Int</span></span>)</span>
+
+enum <span class="hljs-type">Msg</span>:
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Increment</span>, <span class="hljs-type">Decrement</span>
+</code></pre>
+<p>In this example, I've added the final part of the API, <code>subscriptions</code>, but in this case we aren't listening to anything.</p>
+<h2><a class="anchor" aria-hidden="true" id="turning-it-into-a-real-tyrian-app"></a><a href="#turning-it-into-a-real-tyrian-app" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Turning it into a real Tyrian app</h2>
+<p>What we have created is a hypothetical app based on the principles of the Elm architecture. How far from a real, working web app is it?</p>
+<p>Pretty close! Here is the real version, which you can try for yourself if you head over to <a href="https://scribble.ninja/">scribble.ninja</a> and paste it into the editor.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">package</span> example
+
+<span class="hljs-keyword">import</span> cats.effect.<span class="hljs-type">IO</span>
+<span class="hljs-keyword">import</span> tyrian.<span class="hljs-type">Html</span>.*
+<span class="hljs-keyword">import</span> tyrian.*
+
+<span class="hljs-keyword">import</span> scala.scalajs.js.annotation.*
+
+<span class="hljs-meta">@JSExportTopLevel</span>(<span class="hljs-string">"TyrianApp"</span>)
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TyrianIOApp</span>[<span class="hljs-type">Msg</span>, <span class="hljs-type">Model</span>]</span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">router</span></span>: tyrian.<span class="hljs-type">Location</span> =&gt; <span class="hljs-type">Msg</span> =
+    <span class="hljs-type">Routing</span>.none(<span class="hljs-type">Msg</span>.<span class="hljs-type">NoOp</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">init</span></span>(flags: <span class="hljs-type">Map</span>[<span class="hljs-type">String</span>, <span class="hljs-type">String</span>]): (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    (<span class="hljs-type">Model</span>(<span class="hljs-number">1</span>), <span class="hljs-type">Cmd</span>.<span class="hljs-type">None</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Msg</span> =&gt; (<span class="hljs-type">Model</span>, <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>]) =
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span> =&gt;
+      <span class="hljs-keyword">val</span> cmd: <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>] = <span class="hljs-type">Cmd</span>.<span class="hljs-type">SideEffect</span>(println(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+      (model.copy(count = model.count + <span class="hljs-number">1</span>), cmd)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span> =&gt;
+      <span class="hljs-keyword">val</span> cmd: <span class="hljs-type">Cmd</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>] = <span class="hljs-type">Cmd</span>.<span class="hljs-type">SideEffect</span>(println(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>))
+      (model.copy(count = model.count - <span class="hljs-number">1</span>), cmd)
+
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Msg</span>.<span class="hljs-type">NoOp</span> =&gt;
+      (model, <span class="hljs-type">Cmd</span>.<span class="hljs-type">None</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">view</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Html</span>[<span class="hljs-type">Msg</span>] = 
+    div(
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Decrement</span>))(<span class="hljs-string">"-"</span>),
+      div(p(<span class="hljs-string">s"Count: <span class="hljs-subst">${model.count}</span>"</span>)),
+      button(onClick(<span class="hljs-type">Msg</span>.<span class="hljs-type">Increment</span>))(<span class="hljs-string">"+"</span>)
+    )
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">subscriptions</span></span>(model: <span class="hljs-type">Model</span>): <span class="hljs-type">Sub</span>[<span class="hljs-type">IO</span>, <span class="hljs-type">Msg</span>] =
+    <span class="hljs-type">Sub</span>.<span class="hljs-type">None</span>
+
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">count: <span class="hljs-type">Int</span></span>)</span>
+
+enum <span class="hljs-type">Msg</span>:
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Increment</span>, <span class="hljs-type">Decrement</span>, <span class="hljs-type">NoOp</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="summary"></a><a href="#summary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Summary</h2>
+<p>All GUI applications follow the same basic principles. Elm may be relatively young, but you can look right back to the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC pattern</a> and find the same needs being met:</p>
+<p>You need to accept input from the user and the world, you need to convert the input into model/state updates, you need to render the model into a view, and you need to be able to subsequently affect the outside world and feed updates back into the loop again.</p>
+<p>All GUI design patterns / architectures work like this, but they differ in the details and the focus / importance they place on the different relationships between the core pillars of the Model, View, and Controller, and the exact forms those things take.</p>
+<p>As a thought exercise: Consider how these things manifest in the API's of other popular frontend solutions that you may be familiar with. What are the implications of a more tightly coupled view and state? What kind of apps are possible with weaker / stronger notions of the controller? What happens to rendering and testing, when you start using reactive values / data-binding?</p>
+<p>None of these considerations are right or wrong, but they do all represent trade-offs that will influence the nature of your application, and your experience and enjoyment while developing it.</p>
+<p>In technical terms, the Elm architecture emphasises the importance of decoupling the state, from the presentation, from the update lifecycle. Its elegant use of pure functions, immutable data, and unidirectional event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat. More than that, on a human level, I think it potentially offers the most pleasant and enjoyable way to build complex GUI applications.</p>
+<p>The next conceptual challenge to overcome, is how to scale it.</p>
+</span></div></div><div class="blogSocialSection"><div class="blogSocialSectionItem"><a href="https://twitter.com/share" class="twitter-share-button" data-text="Deriving the Elm Architecture" data-url="https://purplekingdomgames.com//blog/2024/03/05/deriving-the-elm-architecture" data-related="true" data-via="davidjamessmith" data-show-count="false">Tweet</a></div></div></div><div class="blog-recent"><a class="button" href="/blog/">Recent posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#background">Background</a></li><li><a href="#first-principles-how-do-_i_-want-to-program-guis">First Principles: How do <em>I</em> want to program GUIs?</a></li><li><a href="#arriving-at-the-elm-architecture-based-on-need">Arriving at the Elm architecture, based on need</a><ul class="toc-headings"><li><a href="#need-1-to-draw-something">Need 1: To draw something</a></li><li><a href="#need-2-remove-the-hardcoded-values">Need 2: Remove the hardcoded values</a></li><li><a href="#need-3-updating-the-model">Need 3: Updating the model</a></li><li><a href="#need-4-triggering-an-update">Need 4: Triggering an update</a></li><li><a href="#lets-review">Let's review</a></li><li><a href="#need-5-side-effects">Need 5: Side effects</a></li><li><a href="#need-6-listening-for-other-inputs">Need 6: Listening for other inputs</a></li></ul></li><li><a href="#turning-it-into-a-real-tyrian-app">Turning it into a real Tyrian app</a></li><li><a href="#summary">Summary</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/pk-small.svg" alt="Purple Kingdom Games" width="66" height="58"/></a><div><a href="/privacy">Privacy Policy</a><a href="mailto:info@purplekingdomgames.com">Contact Us</a></div><div></div><div><a href="https://github.com/PurpleKingdomGames">GitHub</a><iframe class="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe><div class="social"><a href="https://twitter.com/purple_herald" class="twitter-follow-button">Follow @purple_herald</a></div></div></section><section class="copyright">Copyright © 2024 Purple Kingdom Games Ltd.</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>
