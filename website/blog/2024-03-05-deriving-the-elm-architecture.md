@@ -8,7 +8,7 @@ authorImageURL: /img/davesmith00000.png
 
 ![Deriving the Elm Architecture](/img/blog/decoding_a_tree.jpeg)
 
-[Indigo](https://github.com/PurpleKingdomGames/indigo) and [Tyrian](https://github.com/PurpleKingdomGames/tyrian) are both based on flavours of the [Elm](https://elm-lang.org/) architecture; But why that architecture pattern, and how does it work?
+Indigo and Tyrian are both based on flavours of the Elm architecture; But why that architecture pattern, and how does it work?
 
 In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.
 
@@ -16,7 +16,7 @@ In this post, we define some desired principles of how we'd like to program a Gr
 
 ## Background
 
-The Elm Architecture, affectionately called the TEA pattern, is the architectural pattern borne out of the Elm programming language.
+The Elm Architecture, affectionately called the TEA pattern, is the architectural pattern borne out of the [Elm](https://elm-lang.org/) programming language.
 
 Elm tends to polarise opinions, but in my view, whether you love Elm-the-language or not, the architecture itself is the best GUI architecture pattern anyone has come up with so far.
 
@@ -46,7 +46,7 @@ I value developer productivity and programming enjoyment, specifically answering
 
 ## Arriving at the Elm architecture, based on need
 
-We'll loosely base all examples here on Tyrian-esque web apps, because Tyrian is closer to the canonical TEA pattern than Indigo is, for reasons beyond the scope of this post.
+We'll loosely base all examples here on Tyrian-esque web apps, because [Tyrian](https://github.com/PurpleKingdomGames/tyrian) is closer to the canonical TEA pattern than [Indigo](https://github.com/PurpleKingdomGames/indigo) is, for reasons beyond the scope of this post.
 
 That said, this is a general purpose pattern and can apply to any sort of graphical application.
 
