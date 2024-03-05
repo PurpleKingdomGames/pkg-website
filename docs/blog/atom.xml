@@ -14,7 +14,7 @@
         <link href="https://purplekingdomgames.com//blog/2024/03/05/deriving-the-elm-architecture.html"/>
         <updated>2024-03-05T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p><img src="/img/blog/decoding_a_tree.jpeg" alt="Deriving the Elm Architecture"></p>
-<p><a href="https://github.com/PurpleKingdomGames/indigo">Indigo</a> and <a href="https://github.com/PurpleKingdomGames/tyrian">Tyrian</a> are both based on flavours of the <a href="https://elm-lang.org/">Elm</a> architecture; But why that architecture pattern, and how does it work?</p>
+<p>Indigo and Tyrian are both based on flavours of the Elm architecture; But why that architecture pattern, and how does it work?</p>
 <p>In this post, we define some desired principles of how we'd like to program a Graphical User Interface (GUI), and watch the Elm architecture's API inevitably emerge.</p>
 ]]></summary>
         <author>
