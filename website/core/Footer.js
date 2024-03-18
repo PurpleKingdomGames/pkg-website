@@ -70,6 +70,8 @@ class Footer extends React.Component {
                 />
               </div>
             )}
+            <a href="https://purplekingdomgames.com/blog/feed.xml">RSS Feed</a>
+            <a href="https://purplekingdomgames.com/blog/atom.xml">Atom Feed</a>
           </div>
         </section>
         <section className="copyright">{this.props.config.copyright}</section>
