@@ -4,7 +4,7 @@
         <title>Purple Kingdom Games Blog</title>
         <link>https://purplekingdomgames.com//blog</link>
         <description>The best place to stay up-to-date with the latest Purple Kingdom Games news and events.</description>
-        <lastBuildDate>Tue, 05 Mar 2024 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 18 Mar 2024 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,13 @@
             <link>https://purplekingdomgames.com//blog</link>
         </image>
         <copyright>Copyright © 2024 Purple Kingdom Games Ltd.</copyright>
+        <item>
+            <title><![CDATA[Let's build Snake!]]></title>
+            <link>https://purplekingdomgames.com//blog/2024/03/18/lets-build-snake.html</link>
+            <guid>https://purplekingdomgames.com//blog/2024/03/18/lets-build-snake.html</guid>
+            <pubDate>Mon, 18 Mar 2024 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p><a href="https://www.youtube.com/watch?v=YJtG5E_a9sw"><img src="/img/blog/snake_youtube_thumbnail.png" alt="Let's build Snake"></a></p> <p>In this video tutorial, we'll build a version of the classic game 'Snake!', from scratch.</p> <p><a href="https://www.youtube.com/watch?v=YJtG5E_a9sw">Watch the video!</a></p> <p>Snake is an excellent &quot;Hello, world!&quot; project to help you learn any game engine, but here we'll be using our very own, Indigo.</p> <p>If yo...</p>]]></description>
+        </item>
         <item>
             <title><![CDATA[Deriving the Elm Architecture]]></title>
             <link>https://purplekingdomgames.com//blog/2024/03/05/deriving-the-elm-architecture.html</link>
