@@ -8,15 +8,9 @@ authorImageURL: /img/davesmith00000.png
 
 In our last post, [Deriving the Elm Architecture](2024-03-05-deriving-the-elm-architecture.md), we introduced The Elm Arcitecture (or TEA pattern) by building it up from scratch based on a set of principles and needs.
 
-The most common question that comes up next, once people have got to grips with a basic apps in this style, is: "How do I build components?"
+Once people have got to grips with building basic apps using this architechural pattern, the next question that comes up is "How do I scale it?", often disgusied as "How do I build components?"
 
-Components is a word with many meanings, but most people either mean:
-
-1. "Web components", which are predefined components from a third party library designed to help you make pretty forms and effects quickly with minimal styling. For example, [Material UI](https://m3.material.io/).
-
-2. A _reusable_ chunk of code that encapsulate the state, behaviour and presentation of some, typically interactive, element. For example, a button, a bullet, or a video game character.
-
-In this post we'll be exploring the second point by look at how we can use "components" to help organise our code when scaling up the Elm architecture.
+In this post we'll look at scaling the Elm architexture using a few notions of a component, which in our case is really just another, smaller Elm app, mechnically wired into it's parent.
 
 <!--truncate-->
 
@@ -59,11 +53,11 @@ That's better. With these few functions we can create a `Model`, update it, rend
 
 ### The Counter App
 
-Despite having removed all the side effecting facilities from our code, it is still able complete enough to build simple self-contained applications.
+Despite having removed all the side effecting facilities from our code, it is still complete enough to build simple self-contained applications.
 
-The canonical Elm architecture application is a 'Counter'. A number rendered as text, and two buttons that increment and decrement that number when the user clicks on them.
+The canonical Elm architecture example application is a 'Counter'. A number rendered as text, and two buttons that increment and decrement that number when the user clicks on them.
 
-Here it is in psuedo-Tyrian-scala using the functions previously defined.
+Here it is in psuedo-Tyrian-Scala using the functions previously defined.
 
 ```scala
 object App extends TyrianLikeApp:
@@ -102,9 +96,13 @@ Let's walk through it:
 - The new model is re-rendered.
 - `TyrianLikeApp` is a made up runtime that theorectically brings all this together into a working application.
 
+So far so good.
+
 ### Many Counters
 
 What if we wanted more than one counter? How could we model that?
+
+#### A Terrible First Attempt
 
 Perhaps our first attempt would be to update our Model to using a `List[Int]` to model many counters:
 
@@ -112,7 +110,7 @@ Perhaps our first attempt would be to update our Model to using a `List[Int]` to
 final case class Model(counters: List[Int])
 ```
 
-Unfortunately, this isn't enough, because we're going to need to know which counter value to update, in other words, did someone increment the 3rd or the 4th counter? This gives us something like this:
+Unfortunately this isn't enough, because we're going to need to know which counter value to update, in other words, did someone increment the 3rd or the 4th counter? This gives us something like this:
 
 ```scala
 final case class Counter(id: Int, count: Int)
@@ -193,7 +191,7 @@ object App extends TyrianLikeApp:
   def update(model: Model): Msg => Model =
     case Msg.Add =>
       model.copy(
-        counters = Counter(counterCount, 0) :: model.counters,
+        counters = Counter(model.counterCount, 0) :: model.counters,
         counterCount = model.counterCount + 1
       )
 
@@ -242,19 +240,42 @@ enum Msg:
   case Remove
 ```
 
-To make this work, we're introduced a way to make new counter id's (alternatively, we could use a UUID or something), and some new events that add and remove the counter at the head of the list.
+To make this work, we've introduced a way to make new counter id's (alternatively, we could use a UUID or something), and some new events that add and remove the counter at the head of the list.
 
 This too, looks like it's going to work... but notice that it's starting to _feel_ a little complicated. Why is that?
 
-The problem is that even in this toy example, we're slowly losing something called "local reasoning". Our main application logic is muddled into our counter logic, and we need to perform increasing amounts of mental gymnastics to follow the lifecycle of our application.
+The problem is that even in this toy example, we're slowly losing "local reasoning", i.e. it's getting harder and hard to understand each piece of the application. Our main application logic is muddled into our counter logic, and we need to perform increasing amounts of mental gymnastics to follow the lifecycle of our application.
 
-Another way to think of this is that we're simply making each of our original functions bigger with every new feature we add, and literally moving the details that make up each component apart spatially in our code.
+Another way to think of this is that we're simply making each of our original functions bigger with every new feature we add, and literally moving the details that make up each process apart 'spatially' in our code.
+
+Possibly worse, everything is flat. Adding new features, state, and message types means updating everything.
 
 This is not sustainable, so what do we do?
 
-## The notion of a component
+## Intervention: Home Truths and Trade-Offs
+
+The Elm architecture _is_ one blob of central state, and a few pure functions that initialise, modify, and present that state.
+
+This bring some benefits and some challenges when compared to other frontend architectural styles where the state is distributed:
+
+Pros:
+
+- Trivial model serialisation e.g. for hot-reloading or saving game state.
+- Pure functions for easy testing.
+- _Potentially_ exhaustive checking of `Msg`s and better correctness.
+
+Cons:
+
+- No baked-in notion of self contained 'component' objects with isolated local state.
+- Adding a new component means updating the global state and global `Msg` types, to some extent.
+
+We cannot fully get away from those facts of life, so our goal is to final design patterns that keep the good, and minimise the pain of the bad.
+
+## The Notion of a Component
 
 Before we can solve our scaling problem with components, we need to talk about what components actually are. You may think you already know, but beware! Components in the Elm architecture aren't quite like the components you've likely seen elsewhere.
+
+When people use the term 'component', what they really mean is "a self contained lump of state with modification and presentation logic." However, we cannot divide up our state and spread it across the application, so this notion of components is out.
 
 Let's think about our `Counter` type again, here it is:
 
@@ -262,7 +283,7 @@ Let's think about our `Counter` type again, here it is:
 final case class Counter(id: Int, count: Int)
 ```
 
-A tradiational OO-like mutable component-ized version of that might look like this:
+A tradiational OO-esque mutable component version of that might look like this:
 
 ```scala
 final case class Counter(id: Int, var count: Int):
@@ -284,15 +305,13 @@ final case class Counter(id: Int, var count: Int):
     )
 ```
 
-Yukky, I know, but also fairly common.
-
-The present function looks promising as it's just a pure function, but it has to send that ID along with it's messages, and the ID really has nothing to do with the component.
+The present function looks promising as it's just a pure function. It has to send that ID along with its messages because the rendered HTML won't be able to access the component's state. Arguably this is contrived, perhaps in JavaScript we'd have set up a listener and supplied an object reference or something, but this will do for illustrative purposes.
 
 The getters and setters imply that this is in some sort of mutable array, and that all of the logic still lives outside the component. All we've really done is encapsulate the state with some modifier methods.
 
 We have managed to keep the state and the view together though, so that's an improvement, but we can do better!
 
-First up some low hanging fruit, it should be immutable.
+First up some low hanging fruit: It should be immutable.
 
 ```scala
 final case class Counter(id: Int, count: Int):
@@ -395,7 +414,7 @@ object Counter:
 
 This is much better. Now we have all the logic of the counter, it's state, and it's presentation all represented together without being muddled into the application details.
 
-Unfortunately, we've had to include a nasty catch all of `case _ => model` on the update function, though. This is because of that `id` value that the application needs. Our component doesn't need it though... we if we just got rid of it?
+Unfortunately, we've had to include a nasty catch all of `case _ => model` on the update function. This is because of that `id` value that the application needs. Our component doesn't need it though... what if we just got rid of it?
 
 ```scala
 final case class Counter(count: Int)
@@ -423,7 +442,9 @@ object Counter:
     )
 ```
 
-That's much cleaner but by now you may be wondering what this looks like as part of our application code, let's update that now making use of the `Counter` previously defined.
+That's much cleaner, we're removed the ID fields and introduced a local `Msg` enum specifically for `Counter`s that don't take an ID ...but wait a minute! How is that going to work? Well in the case of counters specifically we can just rely on the order of the counters. This won't always work, of course, sometimes you need an ID.
+
+By now you may be wondering what this looks like as part of our application code, let's update that now making use of the `Counter` previously defined.
 
 ```scala
 object App extends TyrianLikeApp:
@@ -475,11 +496,86 @@ enum Msg:
   case Remove
 ```
 
-Our main application is now only concerned with running with top level application, and delegating all component level stuff, to the components.
-
-We can go further though! Our counter model is needlessly complicated, and cna be converted to a nice little opaque type:
+The main application is now only concerned with running with top level application, and delegating all counter level stuff to the counters. It still feels a little too involved though. After all, it still needs to know about adding, removing, and modifying the list of components. Lets try and encapsulate all of that in a new component and further clean up our app:
 
 ```scala
+/** Our top level application, which hands off to the counter manager to manage itself. */
+object App extends TyrianLikeApp:
+
+  def init: Model =
+    Model(CounterManager.init)
+
+  def update(model: Model): Msg => Model =
+    case Msg.UpdateCounterManager(msg) =>
+      model.copy(counterManager = model.counterManager.update(msg))
+
+  def view(model: Model): Html[Msg] = 
+    model.counterManager.view
+
+final case class Model(counterManager: CounterManager)
+
+enum Msg:
+  case UpdateCounterManager(msg: CounterManager.Msg)
+
+/** Encapsulates the business of managing, updating and presenting a number of Counter instances. */
+final case class CounterManager(counters: List[Counter]):
+  // Note these helper methods that just delegate to the pure function
+  // versions in the companion object. Not necessary, but it allow you to
+  // call, e.g. `model.counterManager.view` instead of
+  // `CounterManager.view(model.counterManager)`, which I think is nicer.
+  def update(msg: CounterManager.Msg): CounterManager =
+    e => CounterManager.update(this)(e)
+
+  def view: Html[Msg] =
+    CounterManager.view(this)
+
+object CounterManager:
+
+  enum Msg:
+    case Modify(id: Int, msg: Counter.Msg)
+    case Add
+    case Remove
+
+  val init: CounterManager =
+    CounterManager(
+      counters = List(
+        Counter.init,
+        Counter.init,
+        Counter.init,
+        Counter.init,
+        Counter.init
+      )
+    )
+
+  def update(model: CounterManager): Msg => CounterManager =
+    case Msg.Add =>
+      CounterManager.copy(
+        counters = Counter.init :: model.counters
+      )
+
+    case Msg.Remove =>
+      model.copy(counters = model.counters.drop(1))
+
+    case Msg.Modify(id, msg) =>
+      model.copy(
+        counters = model.counters.zipWithIndex.map { case (c, i) =>
+          if i == id then Counter.update(c)(msg)
+          else c
+        }
+      )
+
+  def view(model: CounterManager): Html = 
+    div(
+      List(
+        button(onClick(Msg.Add))("Add"),
+        button(onClick(Msg.Remove))("Remove")
+      ) ++
+        model.counters.zipWithIndex { case (c, i) =>
+          Counter.view(c).map(msg => Msg.Modify(i, msg))
+        }
+    )
+
+/** Encapsulates the business of updating and rendering a single counter. */
 object Counter:
 
   opaque type Model = Int
@@ -505,4 +601,22 @@ object Counter:
     )
 ```
 
-This new `Counter` definition has all the same properties as the original OO-like notion of a counter component, it's just that it's all done with pure functions, and is in fact, a mini verison of the Elm architecture.
+Our main application is now a mere dozen lines of code and everything else has been delegated. This still requires a bit of manual wiring, but each level is now pretty clean and tidy, is only concerned with it's own business logic, and is easier to locally reason about.
+
+Critically, we have solved our original problem of the code feeling complex and unwieldy. All the same business logic is there, but it has been organised into local blocks and levels that are easy to think about and test on their own.
+
+## ~Turtles~ Elm apps all the way down
+
+The principle is to build Mini-Elm applications and combine them together mechnically.
+
+The example above has the slightly bothersome requirement of ID's, which are needed to route messages from the view back to the next model update. This is a legitimate pattern, but it isn't always necessary.
+
+Let's look at other formulations and examples of Elm-components. These case studies will come from Indigo (a game engine), which also uses a variation of the Elm architecture.
+
+### Case: Sharing the model with Lenses
+
+
+
+### Case: Custom models and Typeclasses
+
+
