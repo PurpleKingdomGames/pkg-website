@@ -1,119 +1,126 @@
-# Purpledoc: Inverted Documentation
+# Example Driven Documentation
 
-What do you do when you are drowning in open source documentation maintenance?
+Providing documentation for open source projects is a necessary support activity for any library author, but it comes with a heavy maintenance cost, particularly for large projects.
 
-In this post I'm going to outline how we solved our documentation problem by flipping the idea of what is important on its head.
+In my experience, a team of one or two developers cannot sustain the maintenance of documentation for even one large library or framework, let alone two or three or four, as we do today.
 
-Typically people write docs with code. With the aid of our internal tool 'Purpledoc', we now write code ..with some docs.
+My goal with this post is to share an idea with our fellow open source library maintainers, a notion I've come to think of as 'Example Driven Documentation'. There will be a lot of references to the implementation of this idea that we now use via an open source internal tool called '[Purpledoc](https://github.com/PurpleKingdomGames/purpledoc)', but it's the idea that I want to offer up for consideration.
 
-> Working software over comprehensive documentation ~ [The Agile manifesto](https://agilemanifesto.org/)
+People typically write documentation containing code examples, but what are the maintenance implications of flipping that around, and having code examples that happen to contain documentation?
 
-## Declaring Documentation Bankruptcy
+## The Documentation Problem
 
-At the risk of seeming over-dramatic, I'm going to try and paint a picture of my experience and the trauma of maintaining open source documentation.
+At the risk of seeming over-dramatic, I'm going to try and paint a picture of my experiences of maintaining open source documentation.
 
-### Hopeful beginnings
+I will spare you the worst parts that I believe are specific to our use case, so what follows is ...just a taste.
 
-You've written a Scala library, published it to everyone's favorite repository, and with shaking hands pushed the publish button on a Reddit post that tells the community of it's existence.
+### Hopeful Beginnings
 
-It's a nervous time, waiting. Will the world hate it? Will they expose you as the world's worst programmer? Far worse, dear reader: Mostly, they don't care.
+You've written a Scala library, published it to everyone's favorite repository, and with shaking hands you pushed the publish button on a social post that tells the community of its existence.
 
-But eventually, someone leaves a comment: "Hey! Nice work, are there any docs?" and you realise that you forgot to write any! Luckily, your library is still very small, and a README file will do the job for now.
+Eventually, someone leaves a comment: "Cool, are there any docs?" Luckily, your library is still small, and pointing them at the hand-crafted, artisanal `README.md` file will do for now.
 
 ### Growth
 
-Turns out that contrary to popular wisdom, if you build it, they won't come, at least not until they find out about it, and even then, only when they get a chance.
+As your community and your code base grows, you notice that your trusty README file is starting to get unmanageable. Your example snippets are constantly out of date, and there are an ever increasing number of them.
 
-Nonetheless, with every post and social media prod, gradually people do start to arrive. They come with problems and raised issues. They come with out-of-the-blue PRs and high expectations. Mostly they come with questions about how your library is supposed to work and why doesn't it work the way they expect. Sometimes they turn up with things to show you, things they built with your library.
+Feeling the need for better tooling, you set up the marvel of engineering that is [MDoc](https://scalameta.org/mdoc/).
 
-It's wonderful.
+MDoc compiles your documentation and makes sure all your examples are correct. The words might still fall out of date, but at least you know the code is good.
 
-As your community and your code base grows, your notice that your trusty README file is starting to get unmanageable. Your examples snippets are constantly out of date and they are more and more of them.
+### Scaling Out
 
-Feeling the need for better tools, you employ that marvel of engineering that is: MDoc.
+README files only scale so far, and you realise that you're going to need to build a docs site(*). This is not the part of the job you enjoy, so you're looking for a fairly out-of-the-box-batteries-included solution.
 
-MDoc compiles your documentation and makes sure all your examples are correct. Much better. The words might still be out of date - you haven't checked for a while - but at least you know the code is good.
+It takes quite a while to choose a site generator, as all the available options are very opinionated, and opinionated solutions mean that there are trade-offs to consider.
 
-### Scaling out
+Nonetheless, after a surprisingly large amount of set up work (time not spent on library development), your site goes live!
 
-You also need better organisation, meaning more pages. Your README file needs to grow up into a real website so that people stand a chance at finding what they're looking for.
+(*I think this is always the case. The exception that proves the rule is my favorite library, [OS-Lib](https://github.com/com-lihaoyi/os-lib), which gets away with just one massive README because of the nature of the tool.)
 
-You find a static site generator, build a site, wrestle MDoc into the build process somehow, and publish to a free hosting service.
+### The Churn
 
-It's been a lot of work, and a lot of time not spent working on your library, but hopefully it will be worth it.
+The docs are still growing! People are asking ever more questions, and you can't keep up with the changes in your releases.
 
-### Despair & Defeat
+MDoc isn't keeping up either. With every new page added your compile time is increasing, and any hope of rapid writing iteration goes out the window.
 
-The docs are still growing! People are asking ever more questions, and you can't keep up with releases.
+If that wasn't enough, you're also quickly losing faith that any of the 'optimistically wordy surrounding descriptions' you wrote five versions ago are still relevant, and reviewing it all feels like a mammoth undertaking.
 
-MDoc isn't keeping up either. With every new page added your compile time is increasing, and rapid documentation iteration has gone out the window. Then a new Scala version comes out, you start getting weird errors, and your release pipeline is blocked.
+You're drowning in documentation and you can't work on your project, but maybe.. maybe no-one will notice if you just... leave it?
 
-As if that wasn't enough, things with the static site generator aren't looking any better. The version you started out on is no longer supported and you need to migrate. The migration doesn't come with any tooling (that works), and the site isn't even compiled in any meaningful way so.. you're on your own. Maybe porting to a different site builder would actually be easier?
+It's about now that a wonderful, hopeful, well meaning person with dreams of building something cool with your library, hops onto your chat server and utters those fateful words: "So I was following the docs and trying to get something working, but it all seems to have changed, is that right?"
 
-You're drowning in documentation maintenance and can't work on your project.. why are you doing this again?
-
-Oh yeah, because once in a while a wonderful, hopeful, well meaning person with dreams of building something cool with your library, hops onto your chat server and utters those fateful words: "So I was following the docs and trying to get something working, but it all seems to have changed, is that right?"
-
-### The Last Resort
+### Documentation Bankruptcy
 
 This is what documentation bankruptcy looks like:
 
-When all your docs are hopelessly out of date, you're constantly apologising for the state of the website, yet you cannot summon the will power to fix it.
+When all your docs are hopelessly out of date, you're constantly apologising for the state of the website, you are losing frustrated users, and yet you cannot summon the will power to fix it.
 
-There is a glimmer of hope in the darkness though, because you have examples. Examples you use for testing the library. Examples you can point your starry-eyed questioners at and say "Look over here, this is the truth."
+There is a glimmer of hope in the darkness though, because you have examples. Examples you use for testing the library. Examples that require no special effort to keep up to date because they're part of your dev process. Examples you can point your starry-eyed questioners at and say "Look over here, it's not much, but it is the truth."
 
-## An interesting solution
+Maybe we can just do more of that?
 
-What if you flipped documentation on its head, and made the focus be on guaranteed correct, working code first, and imprecise wording second?
+What if you flipped documentation on its head, and made the focus be on 'working code' first, and 'imprecise descriptions' second?
 
 What if you had a tool that interrogated a completely ordinary Scala project, extracted the documentation, and built a website out of it?
 
 Could "Example Driven Documentation" offer a solution to the documentation maintenance problem?
 
-## Introducing Purpledoc
+## Purpledoc
 
-Purpledoc is my attempt to put "Example Driven Documentation" into practice.
+Purpledoc is my attempt to put the idea of "Example Driven Documentation" into practice - by turning traditional documentation inside out. Instead of embedding examples inside prose, we embed prose inside working examples. Sort of the inverse of [Literate Programming](https://en.wikipedia.org/wiki/Literate_programming): Where Knuth wanted elegance, we want docs that don't fall out of date.
 
-The principles of purpledoc are as follows
+The process is ..fantastically boring. And that is the point. It takes working code such as this:
 
-1. Working code examples over written documentation. The documentation site is principally built from a real, multi-module Scala project. This is the base line and the fall back. If no other mention is made of a feature than an entry in the menu and a link to working example code, that is good and useful.
-2. Where further explanation of a feature is wanted, it will live as comments in the code with the example. The comments will be extracted and turned into a page on the website.
-3. Conceptual, high level, miscellaneous, and other documentation that rarely changes can be added as a last resort, but the rule is that is contains NO CODE. If you add code here, it won't be checked, thus defeating the point.
+~~~scala
+object Example:
 
-### An example
+    /** ### Orbit
+      *
+      * Returns a position in orbit around a given point.
+      */
+    // ```scala
+    Signal.Orbit(context.frame.viewport.center + Point(0, 200), 50).map { position =>
+      circle.moveTo(position.toPoint)
+    }
+    // ```
+~~~
 
-Let's look at the Ultraviolet side as an example. For context, Ultraviolet is a library for writing shader programs in Scala 3.
+..and processes it into Markdown, like this:
 
-Here is the website's landing page: https://ultraviolet.indigoengine.io/
+~~~markdown
+### Orbit
 
-The landing page is standard Laika stuff and configurable settings we care about are in the `purpledoc.yaml` config file in the documentation site's repo:
+Returns a position in orbit around a given point.
 
-https://github.com/PurpleKingdomGames/ultraviolet-docs
+```scala
+Signal.Orbit(context.frame.viewport.center + Point(0, 200), 50).map { position =>
+  circle.moveTo(position.toPoint)
+}
+```
+~~~
 
-https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/purpledoc.yaml
+The magic isn’t in the implementation — it’s in the structure this approach gives you as a maintainer. Your job becomes writing useful, self-contained examples in a regular Scala project. No more fighting writer’s block, or wondering whether the code snippets still compile when taken together. They do. Guaranteed.
 
-There are two sections generated:
+And if you’ve ever made the classic Scala documentation mistake of forgetting to include a vital import, it doesn’t matter anymore. You do not need to worry about copying everything into the docs manually or trying to second-guess what readers will miss. The full working code is always just one link away.
 
-1. [Documentation](https://ultraviolet.indigoengine.io/documentation/) - The expected docs site
-2. [Live Demos](https://purplekingdomgames.github.io/ultraviolet-docs//live_demos) - A simple HTML page that contains links to all the live demos.
+Purpledoc documentation sites are built around a three tier approach, with only the first being strictly necessary.
 
-Inside the documentation section, the top of the menu is a collection of normal static pages, which are generated from markdown by Laika. For example:
+1. *(Required) Tier 1 - Working code examples over written documentation.* The documentation site is primarily generated from a real, multi-module Scala project full of examples. This is the baseline and the fall back. If no other mention is made of a feature than an entry in the menu and a link to working example code and a demo, that is good and useful to everyone.
+2. *(Optional) Tier 2 - Code is enhanced with prose.* When further explanation is helpful, it lives as comments inside the code. The comments will be extracted and turned into a page on the website. This keeps all the details of a feature in one place, making it easy to maintain.
+3. *(Optional) Tier 3 - High-level conceptual docs.* Broader overviews, design explanations, and other long-lived content can be added as standalone pages, but the golden rule is: They should not contain code. You can add code here, but you shouldn’t, because it won’t be checked or verified.
 
-The 'Shaders and GLSL' page:
+### An Example
 
-https://ultraviolet.indigoengine.io/documentation/shaders-and-glsl.html
+Let's look at the Ultraviolet documentation site as an example. For context, Ultraviolet is a library for writing shader programs in Scala 3.
 
-Is built from this markdown:
+https://ultraviolet.indigoengine.io/
 
-https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/website/documentation/shaders-and-glsl.md
+The site contains some traditional static pages, such as the ['Shaders and GLSL' page](https://ultraviolet.indigoengine.io/documentation/shaders-and-glsl.html) that are built from [markdown](https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/website/documentation/shaders-and-glsl.md).
 
-Below that is the 'Examples' section. From here on, the nav structure is generated from the structure of the Mill build:
+More interesting is the 'Examples' section. From here on, the navigation structure is generated from the structure of the [documentation project's Mill build](https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/build.sc#L11-L35), producing a tree of nav items.
 
-https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/build.sc#L11-L35
-
-This forms a tree of examples, and the leaves of the tree are pages like.
-
-Here is the 'colors' page:
+The leaves of the tree are pages, for example, here is the 'colours' page:
 
 https://ultraviolet.indigoengine.io/examples/fragment/basics/colours/
 
@@ -121,126 +128,65 @@ The page's header comes from a README file:
 
 https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours/README.md
 
-..and the body is extracted from the working code - any and all comments are extracted, and treated as Markdown:
+Any and all comments in the code are extracted, assumed to be Markdown, and become the body of the example's page on the website:
 
 https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours/src/Colours.scala
 
-Example of documentation that will become markdown and presented on the page:
-
-```scala
-  /** This example demonstrates how to calculate a time varying pixel color by using a cosine wave
-    * made up of the current time and the UV coordinates.
-    */
-  // ```scala
-  inline def fragment: Shader[FragmentEnv, Unit] =
-    Shader[FragmentEnv] { env =>
-      def fragment(color: vec4): vec4 =
-        val col: vec3 = 0.5f + 0.5f * cos(env.TIME + env.UV.xyx + vec3(0.0f, 2.0f, 4.0f))
-        vec4(col, 1.0f)
-    }
-  // ```
-```
-
-And finally, all pages have a link to the code and a link to the live demo baked into them:
-
-- [Page](https://ultraviolet.indigoengine.io/examples/fragment/basics/colours/)
-- [Code](https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours)
-- [Demo](https://ultraviolet.indigoengine.io//live_demos/examples/fragment/basics/colours/)
-
 ### Status of Purpledoc
 
-Purpledoc is an internal tool and built for our specific use case, but it is fully open source. You are welcome to use it, fork it, and contribute to it. You can build your own sites with it, but as things stand, they will look just like one of our sites!
+Purpledoc is an internal CLI tool built for our specific use case, but it is fully open source. You are welcome to use it, fork it, and contribute to it. You can build your own sites with it, but as things stand, all sites will resemble our internal layout and structure. Better yet, if you like the idea - steal it! - and build something better!
 
-Better yet, if you like the idea - steal it! - and build something better that we can switch over to.
+It is not a priority of ours to make this into a general purpose tool. We're amateur / hobbyist game devs doing what we must to survive, not passionate documentation tooling engineers!
 
-It is not a priority of ours to make this into a general purpose tool. We're amateur game devs doing what we must to survive, not passionate documentation tooling engineers!
+Currently, purpledoc only works for Scala.js based library / framework projects and requires the documentation project to use Mill.
 
-### Purpledoc's Requirements
-
-Purpledoc is a little command line tool, and it has a few specific requirements / constraints:
-
-*Scala.js*
-
-All our projects are Scala.js based, and purpledoc uses that fact to build live demos of the examples that you can view. It does not expect or know what to do with non-Scala.js projects.
-
-*Mill*
-
-Purpledoc only works with Mill at the time of writing. We're very fond of Mill, with its clean build setup, its snappy cli, and its nestable modules, which seemed like a good fit for the job.
-
-Examples can be made of many nested Mill modules that go on to make up your documentation's navigation tree, as long as you don't do anything crazy, it should work.
-
-*Laika*
-
-Laika is a Scala-based static website generator, that comes with three serious benefits:
-
-1. Familiar ecosystem - we do Scala here, that's one less thing to learn.
-2. Scala compiled type-checked APIs - ever tried to upgrade a JavaScript framework with no compiler assistance?
-3. It comes both as an sbt plugin, and thankfully, as a normal library you can integrate into anything.
-
-We are in search of robustness here, and Laika has that in spades.
-
-The drawback of Laika (all static site generators have pros and cons) is that it isn't very flexible, but that's fine for our purposes.
-
-### Does it work?
-
-At the time of writing, there are four sites built and maintained with purpledoc, and for our use-case, it's working great!
-
-If there is an example and demo present, it's guaranteed to work. We're not always great at annotating examples, but that's ok. The important bit is the code.
-
-It's reasonably quick to build. Sure, the more modules you have the longer it takes, but while you're working on a particular example you only need to recompile that particular one, and thanks to Mill's build caching, full rebuilds at the first build are very quick.
-
-It is also pretty bullet proof, since it doesn't rely on any fancy stuff like macros.
+At the time of writing, there are four sites built and maintained with purpledoc, and for our use-case, it's working great! It is also pretty bullet proof, since it doesn't rely on any fancy stuff like macros.
 
 #### Unexpected benefits
 
-*Free (manual) regression suite!*
+There were a few unintended benefits that came out of setting up this 'example first' documentation tooling that makes documenting a feature as easy as coding up a minimal example.
 
-Want to know if the next version of your release has broken anything? Bump the version in your docs, follow the compiler to updates any examples, and click through the demos to see if they look ok!
+Here are a few examples:
 
-*Feature testing area*
+1. Free (manual) regression suite! - Want to know if the next version of your release has broken anything? Bump the version in your docs, follow the compiler to update any examples, and click through the demos to see if they look ok.
+2. Feature testing area - Want to see how your new feature feels in a real project? Add an example on a branch and take it for a spin! Bonus, you've just written the minimal docs for the feature once the release is ready to go out.
+3. Author's aid to memory - Forgotten how to do something in one of your libraries? Once you dig out the solution, throw a quick example into the docs project, and everyone gets the benefit.
 
-Want to see how your new feature feels in a real project? Add an example on a branch and take it for a spin! Bonus, you've just written the minimal docs for the feature once the release is ready to go out!
+#### Rough edges
 
-## Caveats and trade-offs
+Purpledoc was made for our needs, so there are a few things to bear in mind: 
 
-A non-exhaustive list of a few biases, assumptions, and trade-offs. 
-
-*We do frontend projects here*
-
-'Example Driven Documentation' is working well for us, but it might not make as much sense in our domains.
-
-*Our issues with MDoc*
-
-Earlier I alluded to problems with MDoc but I did not mean to sound critical.
-
-Generally, MDoc is very robust and clearly a seriously impressive project; Can be a little fiddly, but it's a massive value add and the right tool for most projects.
-
-Our projects generally live on the very latest Scala versions, and in the early days of Scala 3, this lead to cases where the MDoc macros were slightly behind the state of Scala 3, and this blocked our release pipeline.
-
-*Indigo's docs are still transitioning*
-
-The aim is to have a pyramid of "most docs are examples" at the bottom and "a few pages of unavoidable description" at the top. Indigo is currently still a bit top heavy, but we're working on it.
-
-*No support for API docs*
-
-Or to put it another way: If it isn't in an example, there is no information about it, and it is less discoverable.
-
-Early on the decision was made to cut Scaladoc and Unidoc out of the pipeline. As with MDoc, we were having infrequent but significant problems with them that could prevent releases.
-
-The benefit of omitting them is a more robust pipeline, the drawback is there there is no comprehensive code reference.
-
-Adding API docs back in is under consideration.
-
-*Top to bottom*
-
-If your example code contains comments, those comments will be turned into a web page. What that means is that you need to structure the example code carefully, such that the code 'reads' top to bottom. Otherwise you end up using function and classes before you've introduced them.
-
-*Documentation lives in a separate repo*
-
-Or at least, this is how we're using it. Having all the library code and then all of the example documentation code in the same repo could be rather noisy.
-
-Is this a problem? Not for us, but it's something to be aware of.
+1. We do frontend projects here - 'Example Driven Documentation' is working well for us, but it might not make as much sense in other domains.
+2. No support for API docs currently - Not having it simplifies and tightens the build process, but reduces API / feature discoverability, i.e. If it hasn't been documented on purpose, you probably won't know it's there.
+3. Writing code with in-line docs takes practice - the page is built from top to bottom, so your code has to initialise in the order it makes the most sense to read it, which isn't always how we'd structure our code.
 
 ## Conclusion
 
-// TODO Summary, bullet point benefits, etc.
+I've always liked this principle from the [Agile manifesto](https://agilemanifesto.org/), and unintentionally, it's become our open source documentation survival tactic:
+
+> Working software over comprehensive documentation
+
+For our requirements, Purpledoc and 'example driven documentation', has transformed the heartache and burden of documentation maintenance, into a reliable process that’s valuable to both authors and readers.
+
+While the process isn't perfect, and the result may lack the polish of a normal docs site that someone lovingly labors over, making the documentation 'code first' yields a number of benefits to the maintainer, including:
+
+1. Fast (relatively), robust, and reliable builds.
+2. High degree of mechanical assistance.
+3. Clear division between long lived / low maintenance conceptual pages vs library version sensitive examples, for higher confidence in documentation accuracy.
+4. 'Free' manual regression suite for upcoming releases.
+5. New feature / API UX testing playground.
+6. Progressive enhancement. Adding a working example is enough by itself, embellishing with words is a nice to have.
+7. Quick and easy to add new examples that everyone benefits from.
+
+This was our solution to the documentation maintenance problem. It may not work for everyone, but if nothing else, it does go to show that there is room for alternative approaches in this space.
+
+## Try it out!
+
+If you'd like to see how it works in practice, why not add an example to one of our documentation projects and send over a PR? We can always use the help!
+
+- [Ultraviolet](https://github.com/PurpleKingdomGames/ultraviolet-docs)
+- [Indigo](https://github.com/PurpleKingdomGames/indigo-docs)
+- [Tyrian](https://github.com/PurpleKingdomGames/tyrian-docs)
+- [Roguelike-Starterkit](https://github.com/PurpleKingdomGames/roguelike-starterkit-docs)
+
+Indigo in particular has plenty of [open "missing example" issues](https://github.com/PurpleKingdomGames/indigo-docs/issues) if you’re looking for somewhere to start.
