@@ -127,7 +127,7 @@ class Index extends React.Component {
                         </MarkdownBlock>
                         <MarkdownBlock>
                             If you'd like to sponsor our work, we prefer accepting sponsorship via
-                            [Github](https://github.com/sponsors/PurpleKingdomGames?o=esb), but please reach out if you'd like to support
+                            [Github](https://github.com/sponsors/PurpleKingdomGames?o=esb) or [Patreon](https://www.patreon.com/purple_kingdom_games), but please reach out if you'd like to support
                             us via another means, we'd love to hear from you!
                         </MarkdownBlock>
                     </div>
