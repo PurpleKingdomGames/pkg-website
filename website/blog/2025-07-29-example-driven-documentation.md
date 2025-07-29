@@ -1,4 +1,11 @@
-# Example Driven Documentation
+---
+title: Example Driven Documentation
+author: Dave Smith
+authorURL: https://mastodon.gamedev.place/@davesmith00000
+authorImageURL: /img/davesmith00000.png
+---
+
+![Example Driven Documentation](/img/blog/example_driven_docs.png)
 
 Providing documentation for open source projects is a necessary support activity for any library author, but it comes with a heavy maintenance cost, particularly for large projects.
 
@@ -7,6 +14,8 @@ In my experience, a team of one or two developers cannot sustain the maintenance
 My goal with this post is to share an idea with our fellow open source library maintainers, a notion I've come to think of as 'Example Driven Documentation'. There will be a lot of references to the implementation of this idea that we now use via an open source internal tool called '[Purpledoc](https://github.com/PurpleKingdomGames/purpledoc)', but it's the idea that I want to offer up for consideration.
 
 People typically write documentation containing code examples, but what are the maintenance implications of flipping that around, and having code examples that happen to contain documentation?
+
+<!--truncate-->
 
 ## The Documentation Problem
 
@@ -36,7 +45,7 @@ It takes quite a while to choose a site generator, as all the available options 
 
 Nonetheless, after a surprisingly large amount of set up work (time not spent on library development), your site goes live!
 
-(*I think this is always the case. The exception that proves the rule is my favorite library, [OS-Lib](https://github.com/com-lihaoyi/os-lib), which gets away with just one massive README because of the nature of the tool.)
+_(*I think this is always the case. The exception that proves the rule is my favorite library, [OS-Lib](https://github.com/com-lihaoyi/os-lib), which gets away with just one massive README because of the nature of the tool.)_
 
 ### The Churn
 
@@ -138,7 +147,7 @@ Purpledoc is an internal CLI tool built for our specific use case, but it is ful
 
 It is not a priority of ours to make this into a general purpose tool. We're amateur / hobbyist game devs doing what we must to survive, not passionate documentation tooling engineers!
 
-Currently, purpledoc only works for Scala.js based library / framework projects and requires the documentation project to use Mill.
+Currently, purpledoc only works for [Scala.js](https://www.scala-js.org/) based library / framework projects and requires the documentation project to use [Mill](https://mill-build.org/).
 
 At the time of writing, there are four sites built and maintained with purpledoc, and for our use-case, it's working great! It is also pretty bullet proof, since it doesn't rely on any fancy stuff like macros.
 
@@ -148,7 +157,7 @@ There were a few unintended benefits that came out of setting up this 'example f
 
 Here are a few examples:
 
-1. Free (manual) regression suite! - Want to know if the next version of your release has broken anything? Bump the version in your docs, follow the compiler to update any examples, and click through the demos to see if they look ok.
+1. Free (manual) regression suite! - Want to know if the next version of your release has broken anything? Bump the version in your docs, follow the compiler to update any examples, and click through the demos to see if they look ok. Bonus, your docs are now ready for your next release.
 2. Feature testing area - Want to see how your new feature feels in a real project? Add an example on a branch and take it for a spin! Bonus, you've just written the minimal docs for the feature once the release is ready to go out.
 3. Author's aid to memory - Forgotten how to do something in one of your libraries? Once you dig out the solution, throw a quick example into the docs project, and everyone gets the benefit.
 
@@ -190,3 +199,15 @@ If you'd like to see how it works in practice, why not add an example to one of 
 - [Roguelike-Starterkit](https://github.com/PurpleKingdomGames/roguelike-starterkit-docs)
 
 Indigo in particular has plenty of [open "missing example" issues](https://github.com/PurpleKingdomGames/indigo-docs/issues) if you’re looking for somewhere to start.
+
+---
+
+## Enjoyed this post? Want to support what we do?
+
+We’re always open to contributions — whether that’s code, feedback, or just good conversation. You can:
+
+- Check out our projects on [Github](https://github.com/PurpleKingdomGames/)
+- Join our [Discord server](https://discord.gg/b5CD47g) to share what you’re working on, ask questions, or hang out
+- Support our tools via [Github Sponsors](https://github.com/sponsors/PurpleKingdomGames) or our games via [Patreon](https://www.patreon.com/purple_kingdom_games) to help keep our projects alive and well
+
+Thanks for being part of it!
