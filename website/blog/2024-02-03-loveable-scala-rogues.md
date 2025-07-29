@@ -1,8 +1,7 @@
 ---
 title: Loveable Scala Rogues
 author: Dave Smith
-authorURL: http://twitter.com/davidjamessmith
-authorTwitter: davidjamessmith
+authorURL: https://mastodon.gamedev.place/@davesmith00000
 authorImageURL: /img/davesmith00000.png
 ---
 
@@ -37,3 +36,15 @@ My plan for this year then, is to try and be a bit more present, and to try and 
 This, for example, is 130 lines of Scala 3. Did you know Scala could do that? I wonder what else it can do...
 
 ![A small rainbow shader written in Scala 3.](/img/blog/pretty2.png)
+
+---
+
+## Enjoyed this post? Want to support what we do?
+
+We’re always open to contributions — whether that’s code, feedback, or just good conversation. You can:
+
+- Check out our projects on [Github](https://github.com/PurpleKingdomGames/)
+- Join our [Discord server](https://discord.gg/b5CD47g) to share what you’re working on, ask questions, or hang out
+- Support our tools via [Github Sponsors](https://github.com/sponsors/PurpleKingdomGames) or our games via [Patreon](https://www.patreon.com/purple_kingdom_games) to help keep our projects alive and well
+
+Thanks for being part of it!

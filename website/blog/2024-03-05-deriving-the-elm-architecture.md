@@ -1,8 +1,7 @@
 ---
 title: Deriving the Elm Architecture
 author: Dave Smith
-authorURL: http://twitter.com/davidjamessmith
-authorTwitter: davidjamessmith
+authorURL: https://mastodon.gamedev.place/@davesmith00000
 authorImageURL: /img/davesmith00000.png
 ---
 
@@ -377,3 +376,15 @@ None of these considerations are right or wrong, but they do all represent trade
 In technical terms, the Elm architecture emphasises the importance of decoupling the state, from the presentation, from the update lifecycle. Its elegant use of pure functions, immutable data, and unidirectional event flows produce an architecture pattern that, in terms of being able to reason about and test your application, I think is hard to beat. More than that, on a human level, I think it potentially offers the most pleasant and enjoyable way to build complex GUI applications.
 
 The next conceptual challenge to overcome, is how to scale it.
+
+---
+
+## Enjoyed this post? Want to support what we do?
+
+We’re always open to contributions — whether that’s code, feedback, or just good conversation. You can:
+
+- Check out our projects on [Github](https://github.com/PurpleKingdomGames/)
+- Join our [Discord server](https://discord.gg/b5CD47g) to share what you’re working on, ask questions, or hang out
+- Support our tools via [Github Sponsors](https://github.com/sponsors/PurpleKingdomGames) or our games via [Patreon](https://www.patreon.com/purple_kingdom_games) to help keep our projects alive and well
+
+Thanks for being part of it!
