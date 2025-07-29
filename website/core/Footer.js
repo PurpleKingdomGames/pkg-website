@@ -47,29 +47,11 @@ class Footer extends React.Component {
           </div>
           <div>
             <a href="https://github.com/PurpleKingdomGames">GitHub</a>
+            <a href="https://www.youtube.com/@purplekingdomgames">Youtube</a>
+            <a href="https://bsky.app/profile/davidnorth-pkg.bsky.social">Bluesky</a>
+            <a href="https://mastodon.gamedev.place/@davesmith00000">Mastodon</a>
+            <a href="https://purple-kingdom-games.itch.io/">Itch.io</a>
             <iframe className="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe>
-            {this.props.config.twitterUsername && (
-              <div className="social">
-                <a
-                  href={`https://twitter.com/${this.props.config.twitterUsername}`}
-                  className="twitter-follow-button">
-                  Follow @{this.props.config.twitterUsername}
-                </a>
-              </div>
-            )}
-            {this.props.config.facebookAppId && (
-              <div className="social">
-                <div
-                  className="fb-like"
-                  data-href={this.props.config.url}
-                  data-colorscheme="dark"
-                  data-layout="standard"
-                  data-share="true"
-                  data-width="225"
-                  data-show-faces="false"
-                />
-              </div>
-            )}
             <a href="https://purplekingdomgames.com/blog/feed.xml">RSS Feed</a>
             <a href="https://purplekingdomgames.com/blog/atom.xml">Atom Feed</a>
           </div>
