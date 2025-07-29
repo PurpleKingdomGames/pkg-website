@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Example Driven Documentation · Purple Kingdom Games</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Providing documentation for open source projects is a necessary support activity for any library author, but it comes with a heavy maintenance cost, particularly for large projects."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Example Driven Documentation · Purple Kingdom Games"/><meta property="og:type" content="website"/><meta property="og:url" content="https://purplekingdomgames.com//blog/2025/07/29/example-driven-documentation"/><meta property="og:description" content="Providing documentation for open source projects is a necessary support activity for any library author, but it comes with a heavy maintenance cost, particularly for large projects."/><meta property="og:image" content="https://purplekingdomgames.com/img/pk-small.svg"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/pk-small.svg"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://purplekingdomgames.com/blog/atom.xml" title="Purple Kingdom Games Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://purplekingdomgames.com/blog/feed.xml" title="Purple Kingdom Games Blog RSS Feed"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-123348618-2', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/main.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/pk-small.svg" alt="Purple Kingdom Games"/><h2 class="headerTitleWithLogo">Purple Kingdom Games</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/blog/" target="_self">Blog</a></li><li class=""><a href="https://discord.gg/b5CD47g" target="_blank">Discord</a></li><li class=""><a href="https://github.com/sponsors/PurpleKingdomGames" target="_blank">Sponsor us! 💜</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>All blog posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">All blog posts</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/blog/2025/07/29/example-driven-documentation">Example Driven Documentation</a></li><li class="navListItem"><a class="navItem" href="/blog/2024/03/18/lets-build-snake">Let&#x27;s build Snake!</a></li><li class="navListItem"><a class="navItem" href="/blog/2024/03/05/deriving-the-elm-architecture">Deriving the Elm Architecture</a></li><li class="navListItem"><a class="navItem" href="/blog/2024/02/03/loveable-scala-rogues">Loveable Scala Rogues</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2025/07/29/example-driven-documentation">Example Driven Documentation</a></h1><p class="post-meta">July 29, 2025</p><div class="authorBlock"><p class="post-authorName"><a href="https://mastodon.gamedev.place/@davesmith00000" target="_blank" rel="noreferrer noopener">Dave Smith</a></p><div class="authorPhoto"><a href="https://mastodon.gamedev.place/@davesmith00000" target="_blank" rel="noreferrer noopener"><img src="/img/davesmith00000.png" alt="Dave Smith"/></a></div></div></header><div><span><p><img src="/img/blog/example_driven_docs.png" alt="Example Driven Documentation"></p>
+<p>Providing documentation for open source projects is a necessary support activity for any library author, but it comes with a heavy maintenance cost, particularly for large projects.</p>
+<p>In my experience, a team of one or two developers cannot sustain the maintenance of documentation for even one large library or framework, let alone two or three or four, as we do today.</p>
+<p>My goal with this post is to share an idea with our fellow open source library maintainers, a notion I've come to think of as 'Example Driven Documentation'. There will be a lot of references to the implementation of this idea that we now use via an open source internal tool called '<a href="https://github.com/PurpleKingdomGames/purpledoc">Purpledoc</a>', but it's the idea that I want to offer up for consideration.</p>
+<p>People typically write documentation containing code examples, but what are the maintenance implications of flipping that around, and having code examples that happen to contain documentation?</p>
+<!--truncate-->
+<h2><a class="anchor" aria-hidden="true" id="the-documentation-problem"></a><a href="#the-documentation-problem" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Documentation Problem</h2>
+<p>At the risk of seeming over-dramatic, I'm going to try and paint a picture of my experiences of maintaining open source documentation.</p>
+<p>I will spare you the worst parts that I believe are specific to our use case, so what follows is ...just a taste.</p>
+<h3><a class="anchor" aria-hidden="true" id="hopeful-beginnings"></a><a href="#hopeful-beginnings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Hopeful Beginnings</h3>
+<p>You've written a Scala library, published it to everyone's favorite repository, and with shaking hands you pushed the publish button on a social post that tells the community of its existence.</p>
+<p>Eventually, someone leaves a comment: &quot;Cool, are there any docs?&quot; Luckily, your library is still small, and pointing them at the hand-crafted, artisanal <code>README.md</code> file will do for now.</p>
+<h3><a class="anchor" aria-hidden="true" id="growth"></a><a href="#growth" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Growth</h3>
+<p>As your community and your code base grows, you notice that your trusty README file is starting to get unmanageable. Your example snippets are constantly out of date, and there are an ever increasing number of them.</p>
+<p>Feeling the need for better tooling, you set up the marvel of engineering that is <a href="https://scalameta.org/mdoc/">MDoc</a>.</p>
+<p>MDoc compiles your documentation and makes sure all your examples are correct. The words might still fall out of date, but at least you know the code is good.</p>
+<h3><a class="anchor" aria-hidden="true" id="scaling-out"></a><a href="#scaling-out" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scaling Out</h3>
+<p>README files only scale so far, and you realise that you're going to need to build a docs site(*). This is not the part of the job you enjoy, so you're looking for a fairly out-of-the-box-batteries-included solution.</p>
+<p>It takes quite a while to choose a site generator, as all the available options are very opinionated, and opinionated solutions mean that there are trade-offs to consider.</p>
+<p>Nonetheless, after a surprisingly large amount of set up work (time not spent on library development), your site goes live!</p>
+<p><em>(*I think this is always the case. The exception that proves the rule is my favorite library, <a href="https://github.com/com-lihaoyi/os-lib">OS-Lib</a>, which gets away with just one massive README because of the nature of the tool.)</em></p>
+<h3><a class="anchor" aria-hidden="true" id="the-churn"></a><a href="#the-churn" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Churn</h3>
+<p>The docs are still growing! People are asking ever more questions, and you can't keep up with the changes in your releases.</p>
+<p>MDoc isn't keeping up either. With every new page added your compile time is increasing, and any hope of rapid writing iteration goes out the window.</p>
+<p>If that wasn't enough, you're also quickly losing faith that any of the 'optimistically wordy surrounding descriptions' you wrote five versions ago are still relevant, and reviewing it all feels like a mammoth undertaking.</p>
+<p>You're drowning in documentation and you can't work on your project, but maybe.. maybe no-one will notice if you just... leave it?</p>
+<p>It's about now that a wonderful, hopeful, well meaning person with dreams of building something cool with your library, hops onto your chat server and utters those fateful words: &quot;So I was following the docs and trying to get something working, but it all seems to have changed, is that right?&quot;</p>
+<h3><a class="anchor" aria-hidden="true" id="documentation-bankruptcy"></a><a href="#documentation-bankruptcy" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Documentation Bankruptcy</h3>
+<p>This is what documentation bankruptcy looks like:</p>
+<p>When all your docs are hopelessly out of date, you're constantly apologising for the state of the website, you are losing frustrated users, and yet you cannot summon the will power to fix it.</p>
+<p>There is a glimmer of hope in the darkness though, because you have examples. Examples you use for testing the library. Examples that require no special effort to keep up to date because they're part of your dev process. Examples you can point your starry-eyed questioners at and say &quot;Look over here, it's not much, but it is the truth.&quot;</p>
+<p>Maybe we can just do more of that?</p>
+<p>What if you flipped documentation on its head, and made the focus be on 'working code' first, and 'imprecise descriptions' second?</p>
+<p>What if you had a tool that interrogated a completely ordinary Scala project, extracted the documentation, and built a website out of it?</p>
+<p>Could &quot;Example Driven Documentation&quot; offer a solution to the documentation maintenance problem?</p>
+<h2><a class="anchor" aria-hidden="true" id="purpledoc"></a><a href="#purpledoc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpledoc</h2>
+<p>Purpledoc is my attempt to put the idea of &quot;Example Driven Documentation&quot; into practice - by turning traditional documentation inside out. Instead of embedding examples inside prose, we embed prose inside working examples. Sort of the inverse of <a href="https://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a>: Where Knuth wanted elegance, we want docs that don't fall out of date.</p>
+<p>The process is ..fantastically boring. And that is the point. It takes working code such as this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Example</span></span>:
+
+    <span class="hljs-comment">/** ### Orbit
+      *
+      * Returns a position in orbit around a given point.
+      */</span>
+    <span class="hljs-comment">// ```scala</span>
+    <span class="hljs-type">Signal</span>.<span class="hljs-type">Orbit</span>(context.frame.viewport.center + <span class="hljs-type">Point</span>(<span class="hljs-number">0</span>, <span class="hljs-number">200</span>), <span class="hljs-number">50</span>).map { position =&gt;
+      circle.moveTo(position.toPoint)
+    }
+    <span class="hljs-comment">// ```</span>
+</code></pre>
+<p>..and processes it into Markdown, like this:</p>
+<pre><code class="hljs css language-markdown"><span class="hljs-section">### Orbit</span>
+
+Returns a position in orbit around a given point.
+
+<span class="hljs-code">```scala
+Signal.Orbit(context.frame.viewport.center + Point(0, 200), 50).map { position =&gt;
+  circle.moveTo(position.toPoint)
+}
+```</span>
+</code></pre>
+<p>The magic isn’t in the implementation — it’s in the structure this approach gives you as a maintainer. Your job becomes writing useful, self-contained examples in a regular Scala project. No more fighting writer’s block, or wondering whether the code snippets still compile when taken together. They do. Guaranteed.</p>
+<p>And if you’ve ever made the classic Scala documentation mistake of forgetting to include a vital import, it doesn’t matter anymore. You do not need to worry about copying everything into the docs manually or trying to second-guess what readers will miss. The full working code is always just one link away.</p>
+<p>Purpledoc documentation sites are built around a three tier approach, with only the first being strictly necessary.</p>
+<ol>
+<li><em>(Required) Tier 1 - Working code examples over written documentation.</em> The documentation site is primarily generated from a real, multi-module Scala project full of examples. This is the baseline and the fall back. If no other mention is made of a feature than an entry in the menu and a link to working example code and a demo, that is good and useful to everyone.</li>
+<li><em>(Optional) Tier 2 - Code is enhanced with prose.</em> When further explanation is helpful, it lives as comments inside the code. The comments will be extracted and turned into a page on the website. This keeps all the details of a feature in one place, making it easy to maintain.</li>
+<li><em>(Optional) Tier 3 - High-level conceptual docs.</em> Broader overviews, design explanations, and other long-lived content can be added as standalone pages, but the golden rule is: They should not contain code. You can add code here, but you shouldn’t, because it won’t be checked or verified.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="an-example"></a><a href="#an-example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>An Example</h3>
+<p>Let's look at the Ultraviolet documentation site as an example. For context, Ultraviolet is a library for writing shader programs in Scala 3.</p>
+<p><a href="https://ultraviolet.indigoengine.io/">https://ultraviolet.indigoengine.io/</a></p>
+<p>The site contains some traditional static pages, such as the <a href="https://ultraviolet.indigoengine.io/documentation/shaders-and-glsl.html">'Shaders and GLSL' page</a> that are built from <a href="https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/website/documentation/shaders-and-glsl.md">markdown</a>.</p>
+<p>More interesting is the 'Examples' section. From here on, the navigation structure is generated from the structure of the <a href="https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/build.sc#L11-L35">documentation project's Mill build</a>, producing a tree of nav items.</p>
+<p>The leaves of the tree are pages, for example, here is the 'colours' page:</p>
+<p><a href="https://ultraviolet.indigoengine.io/examples/fragment/basics/colours/">https://ultraviolet.indigoengine.io/examples/fragment/basics/colours/</a></p>
+<p>The page's header comes from a README file:</p>
+<p><a href="https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours/README.md">https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours/README.md</a></p>
+<p>Any and all comments in the code are extracted, assumed to be Markdown, and become the body of the example's page on the website:</p>
+<p><a href="https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours/src/Colours.scala">https://github.com/PurpleKingdomGames/ultraviolet-docs/blob/main/examples/fragment/basics/colours/src/Colours.scala</a></p>
+<h3><a class="anchor" aria-hidden="true" id="status-of-purpledoc"></a><a href="#status-of-purpledoc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Status of Purpledoc</h3>
+<p>Purpledoc is an internal CLI tool built for our specific use case, but it is fully open source. You are welcome to use it, fork it, and contribute to it. You can build your own sites with it, but as things stand, all sites will resemble our internal layout and structure. Better yet, if you like the idea - steal it! - and build something better!</p>
+<p>It is not a priority of ours to make this into a general purpose tool. We're amateur / hobbyist game devs doing what we must to survive, not passionate documentation tooling engineers!</p>
+<p>Currently, purpledoc only works for <a href="https://www.scala-js.org/">Scala.js</a> based library / framework projects and requires the documentation project to use <a href="https://mill-build.org/">Mill</a>.</p>
+<p>At the time of writing, there are four sites built and maintained with purpledoc, and for our use-case, it's working great! It is also pretty bullet proof, since it doesn't rely on any fancy stuff like macros.</p>
+<h4><a class="anchor" aria-hidden="true" id="unexpected-benefits"></a><a href="#unexpected-benefits" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unexpected benefits</h4>
+<p>There were a few unintended benefits that came out of setting up this 'example first' documentation tooling that makes documenting a feature as easy as coding up a minimal example.</p>
+<p>Here are a few examples:</p>
+<ol>
+<li>Free (manual) regression suite! - Want to know if the next version of your release has broken anything? Bump the version in your docs, follow the compiler to update any examples, and click through the demos to see if they look ok. Bonus, your docs are now ready for your next release.</li>
+<li>Feature testing area - Want to see how your new feature feels in a real project? Add an example on a branch and take it for a spin! Bonus, you've just written the minimal docs for the feature once the release is ready to go out.</li>
+<li>Author's aid to memory - Forgotten how to do something in one of your libraries? Once you dig out the solution, throw a quick example into the docs project, and everyone gets the benefit.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="rough-edges"></a><a href="#rough-edges" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Rough edges</h4>
+<p>Purpledoc was made for our needs, so there are a few things to bear in mind:</p>
+<ol>
+<li>We do frontend projects here - 'Example Driven Documentation' is working well for us, but it might not make as much sense in other domains.</li>
+<li>No support for API docs currently - Not having it simplifies and tightens the build process, but reduces API / feature discoverability, i.e. If it hasn't been documented on purpose, you probably won't know it's there.</li>
+<li>Writing code with in-line docs takes practice - the page is built from top to bottom, so your code has to initialise in the order it makes the most sense to read it, which isn't always how we'd structure our code.</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="conclusion"></a><a href="#conclusion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
+<p>I've always liked this principle from the <a href="https://agilemanifesto.org/">Agile manifesto</a>, and unintentionally, it's become our open source documentation survival tactic:</p>
+<blockquote>
+<p>Working software over comprehensive documentation</p>
+</blockquote>
+<p>For our requirements, Purpledoc and 'example driven documentation', has transformed the heartache and burden of documentation maintenance, into a reliable process that’s valuable to both authors and readers.</p>
+<p>While the process isn't perfect, and the result may lack the polish of a normal docs site that someone lovingly labors over, making the documentation 'code first' yields a number of benefits to the maintainer, including:</p>
+<ol>
+<li>Fast (relatively), robust, and reliable builds.</li>
+<li>High degree of mechanical assistance.</li>
+<li>Clear division between long lived / low maintenance conceptual pages vs library version sensitive examples, for higher confidence in documentation accuracy.</li>
+<li>'Free' manual regression suite for upcoming releases.</li>
+<li>New feature / API UX testing playground.</li>
+<li>Progressive enhancement. Adding a working example is enough by itself, embellishing with words is a nice to have.</li>
+<li>Quick and easy to add new examples that everyone benefits from.</li>
+</ol>
+<p>This was our solution to the documentation maintenance problem. It may not work for everyone, but if nothing else, it does go to show that there is room for alternative approaches in this space.</p>
+<h2><a class="anchor" aria-hidden="true" id="try-it-out"></a><a href="#try-it-out" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Try it out!</h2>
+<p>If you'd like to see how it works in practice, why not add an example to one of our documentation projects and send over a PR? We can always use the help!</p>
+<ul>
+<li><a href="https://github.com/PurpleKingdomGames/ultraviolet-docs">Ultraviolet</a></li>
+<li><a href="https://github.com/PurpleKingdomGames/indigo-docs">Indigo</a></li>
+<li><a href="https://github.com/PurpleKingdomGames/tyrian-docs">Tyrian</a></li>
+<li><a href="https://github.com/PurpleKingdomGames/roguelike-starterkit-docs">Roguelike-Starterkit</a></li>
+</ul>
+<p>Indigo in particular has plenty of <a href="https://github.com/PurpleKingdomGames/indigo-docs/issues">open &quot;missing example&quot; issues</a> if you’re looking for somewhere to start.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="enjoyed-this-post-want-to-support-what-we-do"></a><a href="#enjoyed-this-post-want-to-support-what-we-do" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enjoyed this post? Want to support what we do?</h2>
+<p>We’re always open to contributions — whether that’s code, feedback, or just good conversation. You can:</p>
+<ul>
+<li>Check out our projects on <a href="https://github.com/PurpleKingdomGames/">Github</a></li>
+<li>Join our <a href="https://discord.gg/b5CD47g">Discord server</a> to share what you’re working on, ask questions, or hang out</li>
+<li>Support our tools via <a href="https://github.com/sponsors/PurpleKingdomGames">Github Sponsors</a> or our games via <a href="https://www.patreon.com/purple_kingdom_games">Patreon</a> to help keep our projects alive and well</li>
+</ul>
+<p>Thanks for being part of it!</p>
+</span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/blog/">Recent posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#the-documentation-problem">The Documentation Problem</a><ul class="toc-headings"><li><a href="#hopeful-beginnings">Hopeful Beginnings</a></li><li><a href="#growth">Growth</a></li><li><a href="#scaling-out">Scaling Out</a></li><li><a href="#the-churn">The Churn</a></li><li><a href="#documentation-bankruptcy">Documentation Bankruptcy</a></li></ul></li><li><a href="#purpledoc">Purpledoc</a><ul class="toc-headings"><li><a href="#an-example">An Example</a></li><li><a href="#status-of-purpledoc">Status of Purpledoc</a></li></ul></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#try-it-out">Try it out!</a></li><li><a href="#enjoyed-this-post-want-to-support-what-we-do">Enjoyed this post? Want to support what we do?</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/pk-small.svg" alt="Purple Kingdom Games" width="66" height="58"/></a><div><a href="/privacy">Privacy Policy</a><a href="mailto:info@purplekingdomgames.com">Contact Us</a></div><div></div><div><a href="https://github.com/PurpleKingdomGames">GitHub</a><a href="https://www.youtube.com/@purplekingdomgames">Youtube</a><a href="https://bsky.app/profile/davidnorth-pkg.bsky.social">Bluesky</a><a href="https://mastodon.gamedev.place/@davesmith00000">Mastodon</a><a href="https://purple-kingdom-games.itch.io/">Itch.io</a><iframe class="sponsor-button" src="https://github.com/sponsors/PurpleKingdomGames/button" title="Sponsor PurpleKingdomGames"></iframe><a href="https://purplekingdomgames.com/blog/feed.xml">RSS Feed</a><a href="https://purplekingdomgames.com/blog/atom.xml">Atom Feed</a></div></section><section class="copyright">Copyright © 2025 Purple Kingdom Games Ltd.</section></footer></div></body></html>

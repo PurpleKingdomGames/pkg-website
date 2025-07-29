@@ -4,7 +4,7 @@
         <title>Purple Kingdom Games Blog</title>
         <link>https://purplekingdomgames.com//blog</link>
         <description>The best place to stay up-to-date with the latest Purple Kingdom Games news and events.</description>
-        <lastBuildDate>Mon, 18 Mar 2024 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 29 Jul 2025 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -12,13 +12,27 @@
             <url>https://purplekingdomgames.com//img/pk-small.svg</url>
             <link>https://purplekingdomgames.com//blog</link>
         </image>
-        <copyright>Copyright © 2024 Purple Kingdom Games Ltd.</copyright>
+        <copyright>Copyright © 2025 Purple Kingdom Games Ltd.</copyright>
+        <item>
+            <title><![CDATA[Example Driven Documentation]]></title>
+            <link>https://purplekingdomgames.com//blog/2025/07/29/example-driven-documentation.html</link>
+            <guid>https://purplekingdomgames.com//blog/2025/07/29/example-driven-documentation.html</guid>
+            <pubDate>Tue, 29 Jul 2025 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p><img src="/img/blog/example_driven_docs.png" alt="Example Driven Documentation"></p>
+<p>Providing documentation for open source projects is a necessary support activity for any library author, but it comes with a heavy maintenance cost, particularly for large projects.</p>
+<p>In my experience, a team of one or two developers cannot sustain the maintenance of documentation for even one large library or framework, let alone two or three or four, as we do today.</p>
+<p>My goal with this post is to share an idea with our fellow open source library maintainers, a notion I've come to think of as 'Example Driven Documentation'. There will be a lot of references to the implementation of this idea that we now use via an open source internal tool called '<a href="https://github.com/PurpleKingdomGames/purpledoc">Purpledoc</a>', but it's the idea that I want to offer up for consideration.</p>
+<p>People typically write documentation containing code examples, but what are the maintenance implications of flipping that around, and having code examples that happen to contain documentation?</p>
+]]></description>
+        </item>
         <item>
             <title><![CDATA[Let's build Snake!]]></title>
             <link>https://purplekingdomgames.com//blog/2024/03/18/lets-build-snake.html</link>
             <guid>https://purplekingdomgames.com//blog/2024/03/18/lets-build-snake.html</guid>
             <pubDate>Mon, 18 Mar 2024 06:00:00 GMT</pubDate>
-            <description><![CDATA[<p><a href="https://www.youtube.com/watch?v=YJtG5E_a9sw"><img src="/img/blog/snake_youtube_thumbnail.png" alt="Let's build Snake"></a></p> <p>In this video tutorial, we'll build a version of the classic game 'Snake!', from scratch.</p> <p><a href="https://www.youtube.com/watch?v=YJtG5E_a9sw">Watch the video!</a></p> <p>Snake is an excellent &quot;Hello, world!&quot; project to help you learn any game engine, but here we'll be using our very own, Indigo.</p> <p>If yo...</p>]]></description>
+            <description><![CDATA[<p><a href="https://www.youtube.com/watch?v=YJtG5E_a9sw"><img src="/img/blog/snake_youtube_thumbnail.png" alt="Let's build Snake"></a></p>
+<p>In this video tutorial, we'll build a version of the classic game 'Snake!', from scratch.</p>
+]]></description>
         </item>
         <item>
             <title><![CDATA[Deriving the Elm Architecture]]></title>
