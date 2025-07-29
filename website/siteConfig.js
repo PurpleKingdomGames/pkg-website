@@ -35,7 +35,7 @@ const siteConfig = {
   /* blog settings */
   blogSidebarCount: 'ALL',
   blogSidebarTitle: { default: 'Recent posts', all: 'All blog posts' },
-  twitter: true,
+  twitter: false,
 
   /* path to images for header/footer */
   headerIcon: 'img/pk-small.svg',
@@ -117,9 +117,9 @@ const siteConfig = {
 
   // Open Graph and Twitter card images.
   ogImage: 'img/pk-small.svg',
-  twitter: true,
-  twitterUsername: "purple_herald",
-  twitterImage: 'img/pk-small.svg',
+  twitter: false,
+  // twitterUsername: "purple_herald",
+  // twitterImage: 'img/pk-small.svg',
   gaTrackingId: 'UA-123348618-2',
   // For sites with a sizable amount of content, set collapsible to true.
   // Expand/collapse the links and subcategories under categories.
